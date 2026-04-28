@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #C9722C;
+  --color-primary-hover: #B06020;
+  --color-secondary: #8F9779;
+  --color-background: #FDFBF7;
+  --color-foreground: #2D2D2D;
+  --color-surface: #F9F6F0;
+  --color-border-subtle: #E5E0D8;
+  
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+}
+
+:root {
+  --background: #FDFBF7;
+  --foreground: #2D2D2D;
+}
+
+@media (prefers-color-scheme: dark) {
+  /* We keep it light/warm for the spiritual retreat center vibe, 
+     but can add a softer dark mode if needed. 
+     For now, forced light theme for the premium look. */
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+}
