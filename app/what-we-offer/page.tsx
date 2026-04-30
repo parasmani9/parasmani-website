@@ -64,7 +64,9 @@ export default function WhatWeOfferPage() {
       <section className="pt-48 pb-24 bg-surface/50 border-b border-border-subtle">
         <div className="container mx-auto px-6 text-center">
           <span className="uppercase tracking-[0.4em] text-[10px] font-bold text-primary mb-6 block">Holistic Services</span>
-          <h1 className="text-5xl md:text-7xl font-serif mb-8 italic">What we offer</h1>
+          <h1 className="mb-6 text-3xl font-semibold tracking-tight text-foreground md:text-4xl lg:text-5xl">
+            What we offer
+          </h1>
           <p className="text-lg font-light opacity-60 max-w-2xl mx-auto leading-relaxed">
             From the core philosophy of Raja Yoga to immersive residential retreats, 
             explore the tools we provide for your spiritual journey.
@@ -84,7 +86,7 @@ export default function WhatWeOfferPage() {
                 <div className="w-14 h-14 rounded-2xl bg-primary/5 flex items-center justify-center text-primary mb-8 transition-transform group-hover:scale-110">
                   <item.icon size={28} strokeWidth={1.5} />
                 </div>
-                <h3 className="text-2xl font-serif mb-4 italic">{item.title}</h3>
+                <h3 className="mb-4 text-xl font-semibold text-foreground">{item.title}</h3>
                 <p className="text-sm opacity-60 font-light leading-relaxed mb-10 flex-1">
                   {item.desc}
                 </p>
@@ -100,7 +102,9 @@ export default function WhatWeOfferPage() {
       {/* Philosophy Callout */}
       <section className="py-24 bg-foreground text-background">
         <div className="container mx-auto px-6 text-center max-w-3xl">
-          <h2 className="text-3xl font-serif italic mb-8">All our services are offered free of charge.</h2>
+          <h2 className="mb-6 text-2xl font-semibold text-background md:text-3xl">
+            All our services are offered free of charge.
+          </h2>
           <p className="opacity-60 font-light leading-relaxed mb-12">
             As a non-profit organization, we believe spiritual wisdom should be accessible 
             to everyone. We are supported solely by voluntary contributions.

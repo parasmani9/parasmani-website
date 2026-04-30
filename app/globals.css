@@ -1,27 +1,54 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #C9722C;
-  --color-primary-hover: #B06020;
-  --color-secondary: #8F9779;
-  --color-background: #FDFBF7;
-  --color-foreground: #2D2D2D;
-  --color-surface: #F9F6F0;
-  --color-border-subtle: #E5E0D8;
-  
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+  /* Mature institutional palette: strong readability, restrained BK red accent */
+  --color-primary: #9e2d2d;
+  --color-primary-hover: #862626;
+  --color-accent: #6b5b4f;
+  --color-accent-muted: #78716c;
+  --color-secondary: #57534e;
+  --color-background: #ffffff;
+  --color-foreground: #1c1917;
+  --color-surface: #f5f5f4;
+  --color-border-subtle: #e7e5e4;
+  --color-muted: #78716c;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
-  --background: #FDFBF7;
-  --foreground: #2D2D2D;
+  --background: #ffffff;
+  --foreground: #1c1917;
+  --nav-height: 3.75rem;
+  --nav-stack: calc(env(safe-area-inset-top, 0px) + var(--nav-height));
+  --section-y: 3.5rem;
+  --gutter: 1rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  /* We keep it light/warm for the spiritual retreat center vibe, 
-     but can add a softer dark mode if needed. 
-     For now, forced light theme for the premium look. */
+@media (min-width: 640px) {
+  :root {
+    --nav-height: 4rem;
+    --section-y: 4.5rem;
+    --gutter: 1.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --nav-height: 4.5rem;
+    --section-y: 5.5rem;
+    --gutter: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --section-y: 6rem;
+  }
+}
+
+html {
+  scroll-padding-top: var(--nav-stack);
 }
 
 body {
@@ -29,8 +56,19 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  padding-left: env(safe-area-inset-left, 0);
+  padding-right: env(safe-area-inset-right, 0);
+  padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
+/* One clear sans stack — headings slightly tighter, no decorative serif */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }

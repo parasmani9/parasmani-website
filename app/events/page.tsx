@@ -58,7 +58,9 @@ export default function EventsPage() {
       <section className="pt-40 pb-20 bg-surface">
         <div className="container mx-auto px-6">
           <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-6xl font-serif mb-6 leading-tight">Upcoming <br /><span className="text-primary italic">Spiritual Journeys</span></h1>
+            <h1 className="mb-6 text-3xl font-semibold leading-tight tracking-tight text-foreground md:text-4xl lg:text-5xl">
+              Events and programs
+            </h1>
             <p className="text-lg opacity-60 font-light">
               Join our community of seekers. Whether online or in the serene hills 
               of Lonavala, find a space to reconnect with your truth.
@@ -100,7 +102,7 @@ export default function EventsPage() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.4 }}
-                  className="bg-surface rounded-[32px] overflow-hidden border border-border-subtle hover:border-primary/20 hover:shadow-2xl transition-all group"
+                  className="group overflow-hidden rounded-lg border border-border-subtle bg-surface transition-all hover:border-primary/25 hover:shadow-md"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <div 
@@ -122,7 +124,9 @@ export default function EventsPage() {
                       <Calendar size={14} />
                       <span className="text-[10px] font-bold uppercase tracking-widest">{event.date}</span>
                     </div>
-                    <h3 className="text-2xl font-serif mb-4 group-hover:text-primary transition-colors">{event.title}</h3>
+                    <h3 className="mb-4 text-xl font-semibold text-foreground transition-colors group-hover:text-primary">
+                      {event.title}
+                    </h3>
                     <p className="text-sm opacity-60 font-light mb-8 line-clamp-2">
                       {event.desc}
                     </p>

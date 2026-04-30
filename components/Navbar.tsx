@@ -3,15 +3,14 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { InstagramIcon, YoutubeIcon, FacebookIcon } from "./SocialIcons";
 
 const navLinks = [
   { name: "About", href: "/about" },
   { name: "What We Offer", href: "/what-we-offer" },
-  { name: "e-Learnings", href: "/eleearnings" },
-  { name: "Resources", href: "/resources" },
+  { name: "Learn & Resources", href: "/resources" },
+  { name: "Events", href: "/events" },
 ];
 
 export function Navbar() {
@@ -20,102 +19,96 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 12);
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   return (
-    <nav
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        isScrolled 
-          ? "bg-background/90 backdrop-blur-xl border-b border-border-subtle py-2 shadow-xl" 
-          : "bg-transparent py-4 text-foreground"
-      )}
-    >
-      {/* Top Bar for Tagline */}
-      {!isScrolled && (
-        <div className="hidden md:flex border-b border-foreground/5 py-2 mb-2">
-          <div className="container mx-auto px-6 flex justify-between items-center">
-            <span className="italic font-serif text-[13px] opacity-70 tracking-wide">
-              Peace is simply an experience but Peace of Mind is a way of life...
-            </span>
-            <div className="flex gap-6 text-[10px] uppercase tracking-[0.2em] font-bold opacity-50">
-              <div className="flex gap-4 items-center mr-6 border-r border-foreground/10 pr-6">
-                <Link href="#" className="hover:text-primary transition-colors"><InstagramIcon className="w-3.5 h-3.5" /></Link>
-                <Link href="#" className="hover:text-primary transition-colors"><YoutubeIcon className="w-3.5 h-3.5" /></Link>
-                <Link href="#" className="hover:text-primary transition-colors"><FacebookIcon className="w-3.5 h-3.5" /></Link>
-              </div>
-              <Link href="/contact" className="hover:text-primary transition-colors">Contact</Link>
-              <button className="hover:text-primary transition-colors flex items-center gap-1">
-                <Search size={12} /> Search
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <div className="container mx-auto px-6 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-background font-serif text-xl font-bold transition-all group-hover:scale-110 shadow-lg shadow-primary/20">
-            P
-          </div>
-          <div className="flex flex-col">
-            <span className="font-serif text-xl font-bold leading-none tracking-tight">
-              Parasmani
-            </span>
-            <span className="text-[9px] uppercase tracking-[0.3em] font-sans opacity-50 font-bold">
-              Lonavala
-            </span>
-          </div>
-        </Link>
-
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-10">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="text-xs font-bold uppercase tracking-widest hover:text-primary transition-colors relative group py-2"
-            >
-              {link.name}
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
-            </Link>
-          ))}
+    <header className="fixed top-0 left-0 right-0 z-50 pt-[env(safe-area-inset-top,0px)]">
+      <nav
+        className={cn(
+          "flex h-[var(--nav-height)] items-center border-b transition-all duration-300",
+          isScrolled
+            ? "border-border-subtle bg-background/90 shadow-[0_1px_0_0_rgba(255,255,255,0.6)_inset] backdrop-blur-xl"
+            : "border-transparent bg-transparent"
+        )}
+      >
+        <div className="container mx-auto flex w-full max-w-full items-center justify-between gap-2 px-[var(--gutter)]">
           <Link
-            href="/donate"
-            className="bg-primary text-background px-8 py-3 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-primary-hover transition-all shadow-xl shadow-primary/20 hover:scale-105 active:scale-95"
+            href="/"
+            className="flex min-h-[44px] shrink-0 items-center gap-2 sm:gap-3"
+            aria-label="Parasmani home"
           >
-            Donate
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded border border-border-subtle bg-surface text-sm font-semibold text-primary">
+              P
+            </div>
+            <div className="min-w-0 leading-tight">
+              <span className="block truncate text-base font-semibold text-foreground sm:text-[1.05rem]">
+                Parasmani
+              </span>
+              <span className="hidden text-[11px] font-normal text-muted sm:block">
+                Brahma Kumaris, Lonavala
+              </span>
+            </div>
           </Link>
+
+          <div className="hidden flex-1 items-center justify-center gap-6 md:flex lg:gap-10">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-primary"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          <div className="hidden shrink-0 md:block">
+            <Link
+              href="/donate"
+              className="inline-flex min-h-[40px] items-center justify-center rounded-md border border-primary bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
+            >
+              Donate
+            </Link>
+          </div>
+
+          <button
+            type="button"
+            className="flex min-h-[48px] min-w-[48px] items-center justify-center rounded-lg text-foreground -mr-1 hover:bg-foreground/5 md:hidden"
+            onClick={() => setMobileMenuOpen((o) => !o)}
+            aria-expanded={mobileMenuOpen}
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
+      </nav>
 
-        {/* Mobile Toggle */}
-        <button 
-          className="md:hidden p-2 text-foreground"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X /> : <Menu />}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="absolute top-full left-0 right-0 bg-background border-b border-border-subtle shadow-2xl overflow-hidden md:hidden"
+            className="max-h-[min(70vh,calc(100dvh-var(--nav-height)-env(safe-area-inset-top,0px)))] overflow-y-auto border-b border-border-subtle bg-background/98 shadow-lg backdrop-blur-xl md:hidden"
           >
-            <div className="flex flex-col p-8 gap-4">
+            <div className="container mx-auto flex max-w-full flex-col px-[var(--gutter)] pb-[max(1rem,env(safe-area-inset-bottom))] pt-2">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-xl font-serif py-4 border-b border-border-subtle/50"
+                  className="min-h-[48px] border-b border-border-subtle/50 py-3 text-base font-medium text-foreground/90 last:border-b-0 active:bg-foreground/[0.03]"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.name}
@@ -123,7 +116,7 @@ export function Navbar() {
               ))}
               <Link
                 href="/donate"
-                className="bg-primary text-background text-center py-5 rounded-2xl font-bold uppercase tracking-widest text-sm mt-4 shadow-xl shadow-primary/10"
+                className="mt-3 flex min-h-[48px] items-center justify-center rounded-md border border-primary bg-primary py-3 text-sm font-semibold text-white active:bg-primary-hover"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Donate
@@ -132,6 +125,6 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </header>
   );
 }

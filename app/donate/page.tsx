@@ -12,7 +12,9 @@ export default function DonatePage() {
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto">
             <span className="text-xs uppercase tracking-[0.4em] text-primary font-bold mb-6 block">Support Our Vision</span>
-            <h1 className="text-6xl font-serif mb-8 italic">Giving from the Heart</h1>
+            <h1 className="mb-8 text-3xl font-semibold tracking-tight text-foreground md:text-4xl lg:text-5xl">
+              Support Parasmani
+            </h1>
             <p className="text-xl font-light opacity-60 leading-relaxed max-w-2xl mx-auto">
               Parasmani is a non-profit, non-commercial initiative. Your contributions 
               help us keep this oasis running for everyone.
@@ -27,10 +29,10 @@ export default function DonatePage() {
             
             {/* Payment Details */}
             <div className="space-y-8">
-              <div className="bg-surface p-12 rounded-[50px] border border-border-subtle">
+              <div className="rounded-lg border border-border-subtle bg-surface p-8 md:p-10">
                 <div className="flex items-center gap-4 mb-10 text-primary">
                   <Building2 size={24} />
-                  <h3 className="text-2xl font-serif italic">Bank Transfer Details</h3>
+                  <h3 className="text-xl font-semibold text-foreground">Bank transfer details</h3>
                 </div>
                 
                 <div className="space-y-6">
@@ -49,8 +51,8 @@ export default function DonatePage() {
                 </div>
               </div>
 
-              <div className="bg-primary p-12 rounded-[50px] text-background shadow-2xl shadow-primary/20">
-                <p className="font-serif italic text-2xl mb-6">Tax Benefit (80G)</p>
+              <div className="rounded-lg bg-primary p-8 text-white shadow-sm md:p-10">
+                <p className="mb-4 text-xl font-semibold">Tax benefit (80G)</p>
                 <p className="text-sm opacity-80 leading-relaxed font-light">
                   Donations to Brahma Kumaris are exempted under Section 80G of the 
                   Income Tax Act. Official receipts will be generated for all contributions.
@@ -59,18 +61,20 @@ export default function DonatePage() {
             </div>
 
             {/* QR Code / App Payment */}
-            <div className="bg-background border-2 border-primary/20 p-12 rounded-[60px] text-center shadow-xl">
+            <div className="rounded-lg border-2 border-primary/20 bg-background p-8 text-center shadow-sm md:p-10">
                <div className="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center text-primary mx-auto mb-10">
                   <QrCode size={40} />
                </div>
-               <h3 className="text-3xl font-serif italic mb-4">Quick UPI Payment</h3>
+               <h3 className="mb-4 text-xl font-semibold text-foreground">UPI payment</h3>
                <p className="text-sm opacity-50 font-light mb-12">Scan the QR code below using any UPI app (GPay, PhonePe, Paytm)</p>
                
                {/* Mock QR Code UI */}
                <div className="aspect-square max-w-[300px] mx-auto bg-white border-8 border-border-subtle rounded-3xl p-6 mb-12 flex items-center justify-center group relative overflow-hidden">
                   <div className="w-full h-full bg-[url('https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=BK-PARASMANI-MOCK')] bg-contain absolute inset-6 opacity-80 group-hover:scale-105 transition-transform" />
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                     <div className="w-12 h-12 bg-white rounded-xl shadow-lg flex items-center justify-center font-bold text-primary italic">P</div>
+                     <div className="flex h-12 w-12 items-center justify-center rounded-md border border-border-subtle bg-white font-semibold text-primary shadow-sm">
+                       P
+                     </div>
                   </div>
                </div>
                

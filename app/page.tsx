@@ -1,9 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { Clock, MapPin, Mountain, Sun, Zap, Heart, Mail, Phone, Users } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Clock, Users } from "lucide-react";
 import { InstagramIcon, YoutubeIcon, FacebookIcon, XIcon } from "@/components/SocialIcons";
 
 export default function Home() {
@@ -13,181 +13,236 @@ export default function Home() {
       <Hero />
 
       {/* Program Highlights */}
-      <section className="py-32 bg-background relative overflow-hidden">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col items-center mb-24 text-center">
-            <span className="uppercase tracking-[0.3em] text-[10px] font-bold text-primary mb-4 p-2 px-4 bg-primary/5 rounded-full">
-              Brahma Kumaris Mulund Sub Zone
-            </span>
-            <h2 className="text-4xl md:text-6xl font-serif italic">Nurture Your Inner World</h2>
-            <div className="w-24 h-1 bg-primary/20 mt-8 rounded-full" />
+      <section className="bg-background py-[var(--section-y)]">
+        <div className="container mx-auto max-w-6xl px-[var(--gutter)]">
+          <div className="mb-12 text-center md:mb-16">
+            <p className="text-sm font-medium text-muted">Brahma Kumaris Mulund Sub Zone</p>
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+              What we offer
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base text-foreground/75">
+              Programs for study, meditation, and community — in Lonavala and online.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
             {[
               { 
                 title: "In-Person Programs", 
-                desc: "Residential retreats and workshops in the serene Sahyadri hills.",
+                desc: "Retreats and workshops for deepening practice in a supportive environment.",
                 tag: "Lonavala",
-                img: "https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&q=80&w=800"
-              },
-              { 
-                title: "Virtual Sessions", 
-                desc: "Join our global community through live webinars and guided meditations.",
-                tag: "Online",
-                img: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=800"
-              },
-              { 
-                title: "Raja Yoga Study", 
-                desc: "A systematic study of consciousness and spiritual laws.",
-                tag: "Knowledge",
                 img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=800"
               },
               { 
-                title: "Corporate Wellness", 
-                desc: "Mindfulness tools tailored for modern professionals and leaders.",
-                tag: "Workshops",
+                title: "Virtual Sessions", 
+                desc: "Live guidance and collective meditation from wherever you are.",
+                tag: "Online",
+                img: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&q=80&w=800"
+              },
+              { 
+                title: "Raja Yoga Study", 
+                desc: "Structured study of consciousness, values, and spiritual principles.",
+                tag: "Knowledge",
+                img: "https://images.unsplash.com/photo-1529694337969-dfde8cba85ad?auto=format&fit=crop&q=80&w=800"
+              },
+              { 
+                title: "Wellbeing & Outreach", 
+                desc: "Tools for clarity and resilience in daily life and workplaces.",
+                tag: "Community",
                 img: "https://images.unsplash.com/photo-1499209974431-9eaa37a11144?auto=format&fit=crop&q=80&w=800"
               },
             ].map((item, i) => (
-              <div key={i} className="group cursor-pointer">
-                <div className="relative aspect-[3/4] rounded-[40px] overflow-hidden mb-8 shadow-xl transition-all duration-700 bg-surface group-hover:shadow-2xl">
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" 
-                    style={{ backgroundImage: `url(${item.img})` }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 transition-opacity group-hover:opacity-100" />
-                  <div className="absolute bottom-8 left-8 right-8">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/70 mb-2 block">{item.tag}</span>
-                    <h3 className="text-xl font-serif text-white">{item.title}</h3>
-                  </div>
+              <article
+                key={i}
+                className="overflow-hidden rounded-lg border border-border-subtle bg-surface"
+              >
+                <div
+                  className="aspect-[4/3] bg-cover bg-center sm:aspect-[3/4]"
+                  style={{ backgroundImage: `url(${item.img})` }}
+                />
+                <div className="border-t border-border-subtle p-5">
+                  <p className="text-xs font-medium uppercase tracking-wide text-muted">{item.tag}</p>
+                  <h3 className="mt-1 text-lg font-semibold text-foreground">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-foreground/70">{item.desc}</p>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Weekday Meditation Banner */}
-      <section className="py-20 bg-primary text-background">
-        <div className="container mx-auto px-6 text-center">
-            <h2 className="text-3xl md:text-5xl font-serif italic mb-6">Monday to Thursday Meditation</h2>
-            <p className="text-lg opacity-80 font-light mb-10 max-w-2xl mx-auto tracking-wide">
-               Join our collective silence every Monday through Thursday. 
-               Dedicated hours for deep reflection and spiritual rejuvenation.
-            </p>
-            <div className="flex justify-center gap-12 font-bold uppercase tracking-widest text-xs">
-               <div className="flex items-center gap-3">
-                  <Clock size={16} /> 04:30 AM - 05:30 AM
-               </div>
-               <div className="flex items-center gap-3">
-                  <Clock size={16} /> 07:00 PM - 08:00 PM
-               </div>
+      {/* Weekday meditation */}
+      <section className="border-y border-border-subtle bg-surface py-14 md:py-16">
+        <div className="container mx-auto max-w-3xl px-[var(--gutter)] text-center">
+          <h2 className="text-xl font-semibold text-foreground md:text-2xl">
+            Weekday collective meditation
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-foreground/75">
+            Monday to Thursday — dedicated times for silence and reflection. All are welcome.
+          </p>
+          <div className="mt-8 flex flex-col gap-4 text-sm font-medium text-foreground sm:flex-row sm:justify-center sm:gap-12">
+            <div className="flex items-center justify-center gap-2">
+              <Clock className="shrink-0 text-primary" size={18} aria-hidden />
+              <span>04:30 – 05:30</span>
             </div>
+            <div className="flex items-center justify-center gap-2">
+              <Clock className="shrink-0 text-primary" size={18} aria-hidden />
+              <span>19:00 – 20:00</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Join Us Lead Capture */}
-      <section className="py-32 bg-surface">
-         <div className="container mx-auto px-6">
-            <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-               <div>
-                  <h2 className="text-5xl font-serif italic mb-8">Join the community</h2>
-                  <p className="text-lg opacity-60 font-light leading-relaxed mb-10">
-                     Be the first to hear about our new retreats, e-learning courses, 
-                     and local events in Lonavala.
-                  </p>
-                  <div className="space-y-6">
-                     <div className="flex items-center gap-6 p-6 rounded-3xl bg-background shadow-sm">
-                        <Users className="text-primary" size={24} />
-                        <div>
-                           <p className="font-bold text-sm uppercase tracking-widest text-primary">Mulund Sanctuary</p>
-                           <p className="text-xs opacity-50">Local community center access</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-
-               <div className="bg-background rounded-[50px] p-10 md:p-12 shadow-2xl border border-border-subtle">
-                  <form className="space-y-6">
-                     <div className="grid grid-cols-2 gap-4">
-                        <input type="text" placeholder="Full Name" className="w-full px-6 py-4 rounded-2xl bg-surface border-none focus:ring-2 focus:ring-primary/20 outline-none transition-all" />
-                        <input type="email" placeholder="Email Address" className="w-full px-6 py-4 rounded-2xl bg-surface border-none focus:ring-2 focus:ring-primary/20 outline-none transition-all" />
-                     </div>
-                     <input type="text" placeholder="Location (City)" className="w-full px-6 py-4 rounded-2xl bg-surface border-none focus:ring-2 focus:ring-primary/20 outline-none transition-all" />
-                     <input type="tel" placeholder="Mobile Number" className="w-full px-6 py-4 rounded-2xl bg-surface border-none focus:ring-2 focus:ring-primary/20 outline-none transition-all" />
-                     <button className="w-full py-5 rounded-2xl bg-primary text-background font-bold tracking-[0.2em] uppercase shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
-                        Join our family
-                     </button>
-                  </form>
-               </div>
+      {/* Contact / register interest */}
+      <section className="bg-background py-[var(--section-y)]">
+        <div className="container mx-auto max-w-5xl px-[var(--gutter)]">
+          <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <h2 className="text-2xl font-semibold text-foreground md:text-3xl">Stay informed</h2>
+              <p className="mt-4 text-base leading-relaxed text-foreground/75">
+                Hear about retreats, courses, and events in Lonavala and online.
+              </p>
+              <div className="mt-8 flex gap-4 rounded-lg border border-border-subtle bg-surface p-4">
+                <Users className="shrink-0 text-primary" size={22} aria-hidden />
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Mulund Sub Zone</p>
+                  <p className="mt-1 text-sm text-muted">Also connected with our Mumbai-area centres.</p>
+                </div>
+              </div>
             </div>
-         </div>
+
+            <div className="rounded-lg border border-border-subtle bg-surface p-6 md:p-8">
+              <form className="space-y-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <label className="sr-only" htmlFor="home-name">
+                    Full name
+                  </label>
+                  <input
+                    id="home-name"
+                    type="text"
+                    placeholder="Full name"
+                    className="w-full rounded-md border border-border-subtle bg-background px-4 py-3 text-sm outline-none ring-primary focus:ring-2"
+                  />
+                  <label className="sr-only" htmlFor="home-email">
+                    Email
+                  </label>
+                  <input
+                    id="home-email"
+                    type="email"
+                    placeholder="Email"
+                    className="w-full rounded-md border border-border-subtle bg-background px-4 py-3 text-sm outline-none ring-primary focus:ring-2"
+                  />
+                </div>
+                <input
+                  type="text"
+                  placeholder="City"
+                  className="w-full rounded-md border border-border-subtle bg-background px-4 py-3 text-sm outline-none ring-primary focus:ring-2"
+                />
+                <input
+                  type="tel"
+                  placeholder="Mobile (optional)"
+                  className="w-full rounded-md border border-border-subtle bg-background px-4 py-3 text-sm outline-none ring-primary focus:ring-2"
+                />
+                <button
+                  type="submit"
+                  className="w-full rounded-md bg-primary py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* Follow Us / Socials */}
-      <section className="py-32 bg-background border-t border-border-subtle/30">
-         <div className="container mx-auto px-6 text-center">
-            <h3 className="text-[10px] uppercase tracking-[0.5em] font-bold opacity-30 mb-16">Follow Our Journey</h3>
-            <div className="flex justify-center gap-6 md:gap-8">
-               {[
-                  { name: "YouTube", icon: YoutubeIcon, bg: "hover:bg-[#FF0000]", shadow: "hover:shadow-[#FF0000]/20" },
-                  { name: "Instagram", icon: InstagramIcon, bg: "hover:bg-[#E1306C]", shadow: "hover:shadow-[#E1306C]/20" },
-                  { name: "X (Twitter)", icon: XIcon, bg: "hover:bg-[#000000]", shadow: "hover:shadow-black/20" },
-                  { name: "Facebook", icon: FacebookIcon, bg: "hover:bg-[#1877F2]", shadow: "hover:shadow-[#1877F2]/20" },
-               ].map((social, i) => (
-                  <button 
-                    key={i} 
-                    className={cn(
-                      "group relative w-16 h-16 md:w-20 md:h-20 rounded-full bg-surface border border-border-subtle flex items-center justify-center transition-all duration-500",
-                      social.bg,
-                      social.shadow,
-                      "hover:scale-110 hover:-translate-y-2 hover:border-transparent hover:text-white"
-                    )}
-                  >
-                     <social.icon className="w-6 h-6 group-hover:scale-110 transition-transform" />
-                     <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-widest font-bold opacity-0 group-hover:opacity-40 transition-all">
-                       {social.name}
-                     </span>
-                  </button>
-               ))}
-            </div>
-         </div>
+      <section className="border-t border-border-subtle bg-surface py-12">
+        <div className="container mx-auto max-w-2xl px-[var(--gutter)] text-center">
+          <h3 className="text-sm font-semibold text-foreground">Online channels</h3>
+          <p className="mt-2 text-sm text-foreground/70">
+            We share updates and recordings on these platforms when available.
+          </p>
+          <div className="mt-6 flex flex-wrap justify-center gap-2">
+            {[
+              { name: "YouTube", icon: YoutubeIcon },
+              { name: "Instagram", icon: InstagramIcon },
+              { name: "X", icon: XIcon },
+              { name: "Facebook", icon: FacebookIcon },
+            ].map((social) => (
+              <span
+                key={social.name}
+                className="inline-flex items-center gap-2 rounded-md border border-border-subtle bg-background px-3 py-2 text-xs font-medium text-foreground/80"
+              >
+                <social.icon className="h-4 w-4 text-muted" aria-hidden />
+                {social.name}
+              </span>
+            ))}
+          </div>
+        </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-24 bg-foreground text-background">
-        <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-16">
-          <div className="col-span-2">
-            <h3 className="text-3xl font-serif mb-6 italic text-primary">Parasmani</h3>
-            <p className="opacity-60 max-w-sm mb-12 leading-relaxed">
-              Established by Brahma Kumaris Mulund Sub Zone. 
-              A non-profit, spiritual initiative dedicated to world transformation 
-              through self transformation.
+      <footer className="bg-stone-900 py-14 text-stone-100">
+        <div className="container mx-auto grid max-w-6xl grid-cols-1 gap-12 px-[var(--gutter)] md:grid-cols-4 md:gap-10">
+          <div className="md:col-span-2">
+            <h3 className="text-xl font-semibold text-white">Parasmani</h3>
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-stone-400">
+              Brahma Kumaris Mulund Sub Zone. A non-profit initiative for spiritual learning and
+              self-transformation through Raja Yoga meditation.
             </p>
-            <div className="flex gap-4">
-              <button className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-background transition-all">
-                <InstagramIcon className="w-5 h-5" />
+            <div className="mt-8 flex gap-2">
+              <button
+                type="button"
+                className="flex h-10 w-10 items-center justify-center rounded-md border border-stone-700 bg-stone-800 text-stone-300 hover:bg-stone-700"
+                aria-label="Instagram"
+              >
+                <InstagramIcon className="h-5 w-5" />
               </button>
-              <button className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-background transition-all">
-                <YoutubeIcon className="w-5 h-5" />
+              <button
+                type="button"
+                className="flex h-10 w-10 items-center justify-center rounded-md border border-stone-700 bg-stone-800 text-stone-300 hover:bg-stone-700"
+                aria-label="YouTube"
+              >
+                <YoutubeIcon className="h-5 w-5" />
               </button>
-              <button className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-background transition-all">
-                <FacebookIcon className="w-5 h-5" />
+              <button
+                type="button"
+                className="flex h-10 w-10 items-center justify-center rounded-md border border-stone-700 bg-stone-800 text-stone-300 hover:bg-stone-700"
+                aria-label="Facebook"
+              >
+                <FacebookIcon className="h-5 w-5" />
               </button>
             </div>
           </div>
           <div>
-            <h4 className="font-semibold mb-6 uppercase text-[10px] tracking-widest opacity-40">Location</h4>
-            <p className="text-sm italic mb-4 leading-relaxed opacity-80">Mundhavare Village, Taluka Maval<br />Near Wet and Joy Resort<br />Lonavala, Maharashtra</p>
-            <p className="text-sm font-bold opacity-80 underline underline-offset-4 decoration-primary cursor-pointer">info@parasmaniretreat.com</p>
+            <h4 className="text-xs font-semibold uppercase tracking-wide text-stone-500">Address</h4>
+            <p className="mt-4 text-sm leading-relaxed text-stone-400">
+              Mundhavare Village, Taluka Maval
+              <br />
+              Near Wet and Joy Resort
+              <br />
+              Lonavala, Maharashtra
+            </p>
+            <p className="mt-4 text-sm font-medium text-stone-300">info@parasmaniretreat.com</p>
           </div>
           <div>
-            <h4 className="font-semibold mb-6 uppercase text-[10px] tracking-widest opacity-40">Fast Links</h4>
-            <ul className="space-y-4 text-sm font-medium">
-              <li className="hover:text-primary cursor-pointer transition-colors">Program Registration</li>
-              <li className="hover:text-primary cursor-pointer transition-colors">FAQ</li>
-              <li className="hover:text-primary cursor-pointer transition-colors">Bank Details</li>
+            <h4 className="text-xs font-semibold uppercase tracking-wide text-stone-500">Links</h4>
+            <ul className="mt-4 space-y-3 text-sm text-stone-300">
+              <li>
+                <Link href="/events" className="hover:text-white">
+                  Events
+                </Link>
+              </li>
+              <li>
+                <Link href="/resources" className="hover:text-white">
+                  Learn &amp; resources
+                </Link>
+              </li>
+              <li>
+                <Link href="/dashboard" className="hover:text-white">
+                  Facilitator dashboard
+                </Link>
+              </li>
+              <li className="cursor-pointer text-stone-400 hover:text-stone-300">FAQ</li>
+              <li className="cursor-pointer text-stone-400 hover:text-stone-300">Bank details</li>
             </ul>
           </div>
         </div>
