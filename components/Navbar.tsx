@@ -4,17 +4,22 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
   { name: "About", href: "/about" },
-  { name: "What We Offer", href: "/what-we-offer" },
   { name: "Learn & Resources", href: "/resources" },
   { name: "Events", href: "/events" },
+  { name: "Donate", href: "/donate" },
 ];
 
-const showDonateInNavbar = false;
+const whatWeOfferLinks = [
+  { name: "Meditation", href: "/what-we-offer" },
+  { name: "Raja Yoga Course", href: "/what-we-offer" },
+  { name: "Retreat Programs", href: "/what-we-offer" },
+  { name: "Youth & Family Sessions", href: "/what-we-offer" },
+];
 
 export function Navbar() {
   const pathname = usePathname();
@@ -69,6 +74,34 @@ export function Navbar() {
           </Link>
 
           <div className="hidden flex-1 items-center justify-center gap-6 md:flex lg:gap-10">
+            <div className="group relative">
+              <Link
+                href="/what-we-offer"
+                className={cn(
+                  "inline-flex items-center gap-1.5 py-2 text-sm font-medium transition-colors",
+                  isActiveLink("/what-we-offer")
+                    ? "text-primary"
+                    : "text-foreground/80 hover:text-primary"
+                )}
+              >
+                What We Offer
+                <ChevronDown className="h-4 w-4" aria-hidden />
+              </Link>
+              {isActiveLink("/what-we-offer") ? (
+                <span className="absolute -bottom-[9px] left-0 right-0 h-0.5 rounded-full bg-primary" />
+              ) : null}
+              <div className="invisible absolute left-1/2 top-full mt-2 w-56 -translate-x-1/2 rounded-lg border border-border-subtle bg-background/95 p-2 opacity-0 shadow-xl backdrop-blur-md transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                {whatWeOfferLinks.map((offerLink) => (
+                  <Link
+                    key={offerLink.name}
+                    href={offerLink.href}
+                    className="block rounded-md px-3 py-2 text-sm text-foreground/85 transition-colors hover:bg-foreground/[0.03] hover:text-primary"
+                  >
+                    {offerLink.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -88,18 +121,7 @@ export function Navbar() {
             ))}
           </div>
 
-          <div className="hidden min-w-[96px] justify-end md:flex">
-            {showDonateInNavbar ? (
-              <Link
-                href="/donate"
-                className="inline-flex min-h-[40px] items-center justify-center rounded-md border border-primary bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
-              >
-                Donate
-              </Link>
-            ) : (
-              <span className="h-10 w-[88px]" aria-hidden />
-            )}
-          </div>
+          <div className="hidden min-w-[96px] justify-end md:flex" />
 
           <button
             type="button"
@@ -122,6 +144,31 @@ export function Navbar() {
             className="max-h-[min(70vh,calc(100dvh-var(--nav-height)-env(safe-area-inset-top,0px)))] overflow-y-auto border-b border-border-subtle bg-background/98 shadow-lg backdrop-blur-xl md:hidden"
           >
             <div className="container mx-auto flex max-w-full flex-col px-[var(--gutter)] pb-[max(1rem,env(safe-area-inset-bottom))] pt-2">
+              <div className="border-b border-border-subtle/50 py-1">
+                <Link
+                  href="/what-we-offer"
+                  className={cn(
+                    "flex min-h-[48px] items-center justify-between py-3 text-base font-medium",
+                    isActiveLink("/what-we-offer") ? "text-primary" : "text-foreground/90"
+                  )}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  What We Offer
+                  <ChevronDown className="h-4 w-4" aria-hidden />
+                </Link>
+                <div className="mb-2 ml-3 space-y-1 border-l border-border-subtle pl-4">
+                  {whatWeOfferLinks.map((offerLink) => (
+                    <Link
+                      key={offerLink.name}
+                      href={offerLink.href}
+                      className="block min-h-[40px] py-2 text-sm text-foreground/80"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {offerLink.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -135,15 +182,6 @@ export function Navbar() {
                   {link.name}
                 </Link>
               ))}
-              {showDonateInNavbar ? (
-                <Link
-                  href="/donate"
-                  className="mt-3 flex min-h-[48px] items-center justify-center rounded-md border border-primary bg-primary py-3 text-sm font-semibold text-white active:bg-primary-hover"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Donate
-                </Link>
-              ) : null}
             </div>
           </motion.div>
         )}
