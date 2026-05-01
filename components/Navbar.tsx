@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -13,9 +14,14 @@ const navLinks = [
   { name: "Events", href: "/events" },
 ];
 
+const showDonateInNavbar = false;
+
 export function Navbar() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const isActiveLink = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,7 +49,7 @@ export function Navbar() {
             : "border-transparent bg-transparent"
         )}
       >
-        <div className="container mx-auto flex w-full max-w-full items-center justify-between gap-2 px-[var(--gutter)]">
+        <div className="container mx-auto flex w-full max-w-full items-center justify-between gap-3 px-[var(--gutter)]">
           <Link
             href="/"
             className="flex min-h-[44px] shrink-0 items-center gap-2 sm:gap-3"
@@ -67,25 +73,37 @@ export function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-primary"
+                className={cn(
+                  "relative py-2 text-sm font-medium transition-colors",
+                  isActiveLink(link.href)
+                    ? "text-primary"
+                    : "text-foreground/80 hover:text-primary"
+                )}
               >
                 {link.name}
+                {isActiveLink(link.href) ? (
+                  <span className="absolute -bottom-[9px] left-0 right-0 h-0.5 rounded-full bg-primary" />
+                ) : null}
               </Link>
             ))}
           </div>
 
-          <div className="hidden shrink-0 md:block">
-            <Link
-              href="/donate"
-              className="inline-flex min-h-[40px] items-center justify-center rounded-md border border-primary bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
-            >
-              Donate
-            </Link>
+          <div className="hidden min-w-[96px] justify-end md:flex">
+            {showDonateInNavbar ? (
+              <Link
+                href="/donate"
+                className="inline-flex min-h-[40px] items-center justify-center rounded-md border border-primary bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
+              >
+                Donate
+              </Link>
+            ) : (
+              <span className="h-10 w-[88px]" aria-hidden />
+            )}
           </div>
 
           <button
             type="button"
-            className="flex min-h-[48px] min-w-[48px] items-center justify-center rounded-lg text-foreground -mr-1 hover:bg-foreground/5 md:hidden"
+            className="flex min-h-[48px] min-w-[48px] items-center justify-center rounded-lg text-foreground hover:bg-foreground/5 md:hidden"
             onClick={() => setMobileMenuOpen((o) => !o)}
             aria-expanded={mobileMenuOpen}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
@@ -108,19 +126,24 @@ export function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="min-h-[48px] border-b border-border-subtle/50 py-3 text-base font-medium text-foreground/90 last:border-b-0 active:bg-foreground/[0.03]"
+                  className={cn(
+                    "min-h-[48px] border-b border-border-subtle/50 py-3 text-base font-medium last:border-b-0 active:bg-foreground/[0.03]",
+                    isActiveLink(link.href) ? "text-primary" : "text-foreground/90"
+                  )}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.name}
                 </Link>
               ))}
-              <Link
-                href="/donate"
-                className="mt-3 flex min-h-[48px] items-center justify-center rounded-md border border-primary bg-primary py-3 text-sm font-semibold text-white active:bg-primary-hover"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Donate
-              </Link>
+              {showDonateInNavbar ? (
+                <Link
+                  href="/donate"
+                  className="mt-3 flex min-h-[48px] items-center justify-center rounded-md border border-primary bg-primary py-3 text-sm font-semibold text-white active:bg-primary-hover"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Donate
+                </Link>
+              ) : null}
             </div>
           </motion.div>
         )}
