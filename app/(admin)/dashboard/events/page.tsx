@@ -3,7 +3,7 @@
 import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 
-type EventType = 'residential' | 'virtual' | 'in-person';
+type EventType = 'virtual' | 'in-person' | 'hybrid';
 
 interface AdminEvent {
   id: string;
@@ -43,7 +43,7 @@ const initialFormState: EventFormState = {
   title: '',
   slug: '',
   description: '',
-  eventType: 'residential',
+  eventType: 'in-person',
   imageUrlsText: '',
   location: '',
   eventStartAt: '',
@@ -374,8 +374,8 @@ export default function AdminEventsPage() {
     setSessionFormState((previous) => ({ ...previous, [key]: value }));
   };
 
-  const handleSaveSession = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSaveSession = async (event?: FormEvent) => {
+    event?.preventDefault();
     if (!editingEventId) {
       setErrorMessage('Select an event to manage sessions.');
       return;
@@ -405,7 +405,7 @@ export default function AdminEventsPage() {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          sessionName: sessionFormState.sessionName,
+          sessionName: sessionFormState.sessionName.trim(),
           startAt: combineDateAndTimeToIso(sessionFormState.sessionDate, sessionFormState.startTime),
           endAt: combineDateAndTimeToIso(sessionFormState.sessionDate, sessionFormState.endTime),
           isActive: sessionFormState.isActive,
@@ -575,7 +575,7 @@ export default function AdminEventsPage() {
                 onChange={(event) => handleSetField('eventType', event.target.value as EventType)}
                 className="w-full rounded-md border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-zinc-500 focus-visible:outline-zinc-400"
               >
-                {(['residential', 'virtual', 'in-person'] as const).map((option) => (
+                {(['virtual', 'in-person', 'hybrid'] as const).map((option) => (
                   <option key={option} value={option}>
                     {toTitleCase(option)}
                   </option>
@@ -758,7 +758,7 @@ export default function AdminEventsPage() {
                 <h2 className="text-lg font-semibold text-zinc-900">Session Management</h2>
                 <p className="mt-1 text-sm text-zinc-600">Add or update event timing sessions.</p>
 
-                <form className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-3" onSubmit={handleSaveSession}>
+                <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-3">
                   <label className="space-y-1 md:col-span-2">
                     <span className="text-sm font-medium text-zinc-700">Session Name</span>
                     <input
@@ -805,7 +805,8 @@ export default function AdminEventsPage() {
                   </label>
                   <div className="flex gap-2 md:col-span-2">
                     <button
-                      type="submit"
+                      type="button"
+                      onClick={() => handleSaveSession()}
                       disabled={isSessionSubmitting}
                       className="inline-flex min-h-10 items-center justify-center rounded-md bg-zinc-900 px-4 py-2 text-sm font-semibold text-white disabled:opacity-70"
                     >
@@ -825,7 +826,7 @@ export default function AdminEventsPage() {
                       </button>
                     ) : null}
                   </div>
-                </form>
+                </div>
 
                 <div className="mt-4 space-y-2">
                   {(editingEvent.event_sessions ?? []).length === 0 ? (

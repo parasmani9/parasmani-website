@@ -8,7 +8,7 @@ interface EventInput {
   title?: string;
   slug?: string;
   description?: string | null;
-  eventType?: 'residential' | 'virtual' | 'in-person';
+  eventType?: 'virtual' | 'in-person' | 'hybrid';
   imageUrl?: string | null;
   imageUrls?: string[];
   location?: string | null;
@@ -117,6 +117,12 @@ export async function POST(request: Request) {
       );
 
       if (sessionInsertError) {
+        if (sessionInsertError.code === '23505') {
+          return NextResponse.json(
+            { error: 'Duplicate session names are not allowed for the same event' },
+            { status: 400 }
+          );
+        }
         return NextResponse.json({ error: sessionInsertError.message }, { status: 400 });
       }
     }

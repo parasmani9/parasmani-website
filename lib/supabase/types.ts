@@ -1,4 +1,4 @@
-export type EventType = 'residential' | 'virtual' | 'in-person';
+export type EventType = 'virtual' | 'in-person' | 'hybrid';
 
 export interface EventRow {
   id: string;

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Navbar } from "@/components/Navbar";
 import { FadeIn } from "@/components/animations";
 
@@ -38,9 +39,11 @@ export default function AboutPage() {
             </FadeIn>
             <FadeIn delay={0.08} className="relative">
               <div className="aspect-square overflow-hidden rounded-lg border border-border-subtle shadow-sm">
-                <img 
+                <Image 
                   src="https://images.unsplash.com/photo-1512100356956-c1367e394133?auto=format&fit=crop&q=80&w=1200" 
                   alt="Silent Meditation" 
+                  width={1200}
+                  height={1200}
                   className="w-full h-full object-cover"
                 />
               </div>

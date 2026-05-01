@@ -42,15 +42,15 @@ const offerings = [
   },
   {
     id: "personal-retreat",
-    title: "Personal Retreat (Residential)",
-    desc: "Immersive residential stays for deep contemplation and renewal in Lonavala.",
+    title: "Personal Retreat",
+    desc: "Immersive stays for deep contemplation and renewal in Lonavala.",
     icon: House,
     href: "#personal-retreat"
   },
   {
     id: "programs",
     title: "Programs & Events",
-    desc: "Structured residential programs and thematic workshops for all groups.",
+    desc: "Structured programs and thematic workshops for all groups.",
     icon: CalendarRange,
     href: "/events"
   }
@@ -69,7 +69,7 @@ export default function WhatWeOfferPage() {
             What we offer
           </h1>
           <p className="text-lg font-light opacity-60 max-w-2xl mx-auto leading-relaxed">
-            From the core philosophy of Raja Yoga to immersive residential retreats, 
+            From the core philosophy of Raja Yoga to immersive retreats, 
             explore the tools we provide for your spiritual journey.
           </p>
         </FadeIn>

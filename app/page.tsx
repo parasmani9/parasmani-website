@@ -9,7 +9,7 @@ import { InstagramIcon, YoutubeIcon, FacebookIcon, XIcon } from "@/components/So
 import { FadeIn } from "@/components/animations";
 import { AnimatePresence, motion } from "framer-motion";
 
-type EventType = "residential" | "virtual" | "in-person";
+type EventType = "virtual" | "in-person" | "hybrid";
 
 interface HomeEventItem {
   id: string;

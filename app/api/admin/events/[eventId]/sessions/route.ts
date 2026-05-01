@@ -52,6 +52,12 @@ export async function POST(
       .single();
 
     if (error) {
+      if (error.code === '23505') {
+        return NextResponse.json(
+          { error: 'A session with this name already exists for this event' },
+          { status: 400 }
+        );
+      }
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 

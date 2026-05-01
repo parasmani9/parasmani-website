@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
 import { cn } from "@/lib/utils";
 
-type EventType = "residential" | "virtual" | "in-person";
+type EventType = "virtual" | "in-person" | "hybrid";
 
 interface EventSession {
   id: string;
@@ -235,17 +235,17 @@ export default function EventsPage() {
       </section>
 
       <section className="sticky top-[80px] z-30 bg-background border-b border-border-subtle py-3">
-        <div className="container mx-auto px-6 flex items-center gap-3 overflow-x-auto">
-          {(["all", "residential", "virtual", "in-person"] as const).map((option) => (
+        <div className="container mx-auto px-6 flex items-center gap-4 overflow-x-auto">
+          {(["all", "virtual", "in-person", "hybrid"] as const).map((option) => (
             <button
               key={option}
               type="button"
-              onClick={() => setFilter(option)}
+              onClick={() => setFilter(option as "all" | EventType)}
               className={cn(
-                "px-4 py-2 rounded-md text-sm font-medium whitespace-nowrap transition-colors border",
+                "px-4 py-2 rounded-md text-sm font-medium whitespace-nowrap transition-all border",
                 filter === option
-                  ? "bg-primary text-white border-primary"
-                  : "bg-background border-border-subtle text-foreground/70 hover:border-primary/40"
+                  ? "bg-primary text-white border-primary shadow-sm"
+                  : "bg-background border-border-subtle text-foreground/70 hover:border-primary/60 hover:text-primary"
               )}
             >
               {toTitleCase(option)}
@@ -358,17 +358,19 @@ export default function EventsPage() {
                     <p className="mt-2 text-sm text-foreground/70 leading-relaxed">
                       {event.description?.trim() || "Simple registration form only."}
                     </p>
-                    <p className="mt-3 text-xs text-foreground/60 inline-flex items-center gap-2">
-                      <Calendar className="w-3.5 h-3.5" />
-                      {event.event_sessions.length} session{event.event_sessions.length > 1 ? "s" : ""}
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => handleToggleRegistrationForm(event)}
-                      className="mt-5 inline-flex min-h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-hover"
-                    >
-                      {openRegistrationEventId === event.id ? "Close form" : "Register"}
-                    </button>
+                    <div className="mt-6 flex items-center gap-4">
+                      <p className="text-xs text-foreground/60 inline-flex items-center gap-2">
+                        <Calendar className="w-3.5 h-3.5" />
+                        {event.event_sessions.length} session{event.event_sessions.length > 1 ? "s" : ""}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => handleToggleRegistrationForm(event)}
+                        className="inline-flex min-h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-hover"
+                      >
+                        {openRegistrationEventId === event.id ? "Close form" : "Register"}
+                      </button>
+                    </div>
                   </div>
 
                   {openRegistrationEventId === event.id ? (
@@ -379,18 +381,25 @@ export default function EventsPage() {
                         specific day.
                       </p>
                       <div className="space-y-2">
-                        {event.event_sessions.map((session) => (
+                        {[...event.event_sessions]
+                          .sort((a, b) => new Date(a.start_at).getTime() - new Date(b.start_at).getTime())
+                          .map((session) => (
                           <label
                             key={session.id}
                             className="flex items-center justify-between rounded-md border border-border-subtle px-3 py-2 cursor-pointer"
                           >
-                            <span className="text-sm text-foreground">{session.session_name}</span>
+                            <div className="flex flex-col">
+                              <span className="text-sm text-foreground">{session.session_name}</span>
+                              <span className="text-xs text-foreground/60">
+                                {new Date(session.start_at).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })} - {new Date(session.end_at).toLocaleString('en-US', { timeStyle: 'short' })}
+                              </span>
+                            </div>
                             <button
                               type="button"
                               aria-label={`Toggle ${session.session_name}`}
                               onClick={() => toggleSession(session.id)}
                               className={cn(
-                                "w-6 h-6 rounded border flex items-center justify-center",
+                                "w-6 h-6 rounded border flex items-center justify-center shrink-0 ml-4",
                                 selectedSessionIds.includes(session.id)
                                   ? "bg-primary border-primary text-white"
                                   : "bg-white border-border-subtle text-transparent"

@@ -29,6 +29,11 @@ export async function PATCH(
 
     const { sessionId } = await params;
     const body = (await request.json()) as SessionUpdateInput;
+
+    if (body.sessionName !== undefined && body.sessionName.trim() === '') {
+      return NextResponse.json({ error: 'Session name cannot be empty' }, { status: 400 });
+    }
+
     const updatePayload = {
       ...(body.sessionName !== undefined ? { session_name: body.sessionName.trim() } : {}),
       ...(body.startAt !== undefined ? { start_at: body.startAt } : {}),
@@ -49,6 +54,12 @@ export async function PATCH(
       .single();
 
     if (error) {
+      if (error.code === '23505') {
+        return NextResponse.json(
+          { error: 'A session with this name already exists for this event' },
+          { status: 400 }
+        );
+      }
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 

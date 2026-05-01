@@ -8,7 +8,7 @@ interface UpdateEventInput {
   title?: string;
   slug?: string;
   description?: string | null;
-  eventType?: 'residential' | 'virtual' | 'in-person';
+  eventType?: 'virtual' | 'in-person' | 'hybrid';
   imageUrl?: string | null;
   imageUrls?: string[];
   location?: string | null;
