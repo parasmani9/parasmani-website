@@ -2,6 +2,7 @@
 
 import { Navbar } from "@/components/Navbar";
 import { Sparkles, Brain, Clock, HelpCircle, House, CalendarRange, Heart } from "lucide-react";
+import { FadeIn } from "@/components/animations";
 
 const offerings = [
   {
@@ -62,7 +63,7 @@ export default function WhatWeOfferPage() {
       
       {/* Hero */}
       <section className="pt-48 pb-24 bg-surface/50 border-b border-border-subtle">
-        <div className="container mx-auto px-6 text-center">
+        <FadeIn className="container mx-auto px-6 text-center">
           <span className="uppercase tracking-[0.4em] text-[10px] font-bold text-primary mb-6 block">Holistic Services</span>
           <h1 className="mb-6 text-3xl font-semibold tracking-tight text-foreground md:text-4xl lg:text-5xl">
             What we offer
@@ -71,7 +72,7 @@ export default function WhatWeOfferPage() {
             From the core philosophy of Raja Yoga to immersive residential retreats, 
             explore the tools we provide for your spiritual journey.
           </p>
-        </div>
+        </FadeIn>
       </section>
 
       {/* Grid of Hub */}
@@ -79,8 +80,9 @@ export default function WhatWeOfferPage() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
             {offerings.map((item, i) => (
-              <div 
+              <FadeIn
                 key={i} 
+                delay={i * 0.05}
                 className="bg-background p-10 rounded-[40px] border border-border-subtle hover:border-primary/40 hover:shadow-2xl transition-all group flex flex-col items-start"
               >
                 <div className="w-14 h-14 rounded-2xl bg-primary/5 flex items-center justify-center text-primary mb-8 transition-transform group-hover:scale-110">
@@ -93,7 +95,7 @@ export default function WhatWeOfferPage() {
                 <button className="text-xs font-bold uppercase tracking-[0.2em] text-primary hover:opacity-70 transition-all flex items-center gap-2">
                   Learn More <div className="w-6 h-[1px] bg-primary" />
                 </button>
-              </div>
+              </FadeIn>
             ))}
           </div>
         </div>
@@ -101,7 +103,7 @@ export default function WhatWeOfferPage() {
 
       {/* Philosophy Callout */}
       <section className="py-24 bg-foreground text-background">
-        <div className="container mx-auto px-6 text-center max-w-3xl">
+        <FadeIn className="container mx-auto px-6 text-center max-w-3xl">
           <h2 className="mb-6 text-2xl font-semibold text-background md:text-3xl">
             All our services are offered free of charge.
           </h2>
@@ -114,7 +116,7 @@ export default function WhatWeOfferPage() {
             <span className="text-xs uppercase tracking-widest font-bold text-primary">Service to humanity</span>
             <div className="h-[1px] w-12 bg-primary/40 self-center" />
           </div>
-        </div>
+        </FadeIn>
       </section>
     </main>
   );

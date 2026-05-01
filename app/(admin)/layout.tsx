@@ -1,8 +1,20 @@
-import { ReactNode } from "react";
-import Link from "next/link";
-import { LayoutDashboard, Calendar, Users, Settings, LogOut, ExternalLink } from "lucide-react";
+import { ReactNode } from 'react';
+import Link from 'next/link';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { Calendar, ExternalLink, LayoutDashboard } from 'lucide-react';
 
-export default function AdminLayout({ children }: { children: ReactNode }) {
+import { LogoutButton } from '@/components/admin/logout-button';
+import { ADMIN_SESSION_COOKIE, verifyAdminSessionToken } from '@/lib/admin-auth';
+
+export default async function AdminLayout({ children }: { children: ReactNode }) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get(ADMIN_SESSION_COOKIE)?.value;
+
+  if (!verifyAdminSessionToken(token)) {
+    redirect('/admin/login');
+  }
+
   return (
     <div className="flex h-screen bg-[#F0F2F5]">
       {/* Sidebar */}
@@ -18,10 +30,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
         <nav className="flex-1 px-4 space-y-2">
           {[
-            { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-            { name: "Manage Events", href: "/dashboard/events", icon: Calendar },
-            { name: "Registrations", href: "/dashboard/registrations", icon: Users },
-            { name: "Settings", href: "/dashboard/settings", icon: Settings },
+            { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+            { name: 'Manage Events', href: '/dashboard/events', icon: Calendar },
           ].map((item) => (
             <Link
               key={item.name}
@@ -39,10 +49,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             <ExternalLink size={16} />
             View Site
           </Link>
-          <button className="flex w-full items-center gap-3 px-4 py-3 text-sm text-red-400 hover:text-red-300 transition-colors">
-            <LogOut size={16} />
-            Logout
-          </button>
+          <LogoutButton />
         </div>
       </aside>
 
@@ -50,10 +57,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       <main className="flex-1 overflow-y-auto">
         <header className="h-20 bg-white border-b border-zinc-200 px-8 flex items-center justify-between">
           <h2 className="font-bold text-zinc-900">Parasmani Facilitator Portal</h2>
-          <div className="flex items-center gap-4">
-            <span className="text-xs font-semibold px-3 py-1 bg-green-100 text-green-700 rounded-full">Active Session</span>
-            <div className="w-10 h-10 rounded-full bg-zinc-200" />
-          </div>
+          <span className="text-xs font-semibold px-3 py-1 bg-green-100 text-green-700 rounded-full">
+            Admin
+          </span>
         </header>
         <div className="p-8">
           {children}

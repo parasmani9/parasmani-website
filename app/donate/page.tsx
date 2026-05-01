@@ -1,7 +1,8 @@
 "use client";
 
 import { Navbar } from "@/components/Navbar";
-import { Heart, Globe, ShieldCheck, QrCode, Building2, Landmark } from "lucide-react";
+import { QrCode, Building2 } from "lucide-react";
+import { FadeIn } from "@/components/animations";
 
 export default function DonatePage() {
   return (
@@ -9,7 +10,7 @@ export default function DonatePage() {
       <Navbar />
       
       <section className="pt-48 pb-24 text-center">
-        <div className="container mx-auto px-6">
+        <FadeIn className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto">
             <span className="text-xs uppercase tracking-[0.4em] text-primary font-bold mb-6 block">Support Our Vision</span>
             <h1 className="mb-8 text-3xl font-semibold tracking-tight text-foreground md:text-4xl lg:text-5xl">
@@ -20,7 +21,7 @@ export default function DonatePage() {
               help us keep this oasis running for everyone.
             </p>
           </div>
-        </div>
+        </FadeIn>
       </section>
 
       <section className="pb-32">
@@ -28,7 +29,7 @@ export default function DonatePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             
             {/* Payment Details */}
-            <div className="space-y-8">
+            <FadeIn className="space-y-8">
               <div className="rounded-lg border border-border-subtle bg-surface p-8 md:p-10">
                 <div className="flex items-center gap-4 mb-10 text-primary">
                   <Building2 size={24} />
@@ -58,10 +59,10 @@ export default function DonatePage() {
                   Income Tax Act. Official receipts will be generated for all contributions.
                 </p>
               </div>
-            </div>
+            </FadeIn>
 
             {/* QR Code / App Payment */}
-            <div className="rounded-lg border-2 border-primary/20 bg-background p-8 text-center shadow-sm md:p-10">
+            <FadeIn delay={0.1} className="rounded-lg border-2 border-primary/20 bg-background p-8 text-center shadow-sm md:p-10">
                <div className="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center text-primary mx-auto mb-10">
                   <QrCode size={40} />
                </div>
@@ -79,7 +80,7 @@ export default function DonatePage() {
                </div>
                
                <p className="text-[10px] uppercase font-bold tracking-[0.3em] opacity-40">Scan to Donate</p>
-            </div>
+            </FadeIn>
           </div>
         </div>
       </section>

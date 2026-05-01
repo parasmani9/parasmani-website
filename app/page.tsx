@@ -1,12 +1,67 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { Clock, Users } from "lucide-react";
+import { Clock, Users, X } from "lucide-react";
 import { InstagramIcon, YoutubeIcon, FacebookIcon, XIcon } from "@/components/SocialIcons";
+import { FadeIn } from "@/components/animations";
+import { AnimatePresence, motion } from "framer-motion";
+
+type EventType = "residential" | "virtual" | "in-person";
+
+interface HomeEventItem {
+  id: string;
+  title: string;
+  description: string | null;
+  event_type: EventType;
+  image_url: string | null;
+  image_urls?: string[];
+}
 
 export default function Home() {
+  const [recentEvent, setRecentEvent] = useState<HomeEventItem | null>(null);
+  const [showRecentEventPopup, setShowRecentEventPopup] = useState(false);
+
+  useEffect(() => {
+    const hasDismissed = sessionStorage.getItem("recent-event-popup-dismissed");
+    if (hasDismissed === "true") {
+      return;
+    }
+
+    const timerId = window.setTimeout(async () => {
+      try {
+        const response = await fetch("/api/events");
+        const payload = (await response.json()) as { data?: HomeEventItem[] };
+        const latestEvent = payload.data?.[0] ?? null;
+        if (latestEvent) {
+          setRecentEvent(latestEvent);
+          setShowRecentEventPopup(true);
+        }
+      } catch {
+        setShowRecentEventPopup(false);
+      }
+    }, 1300);
+
+    return () => {
+      window.clearTimeout(timerId);
+    };
+  }, []);
+
+  const recentEventImageUrl = useMemo(() => {
+    const candidate = recentEvent?.image_urls?.[0] ?? recentEvent?.image_url;
+    if (candidate) {
+      return candidate;
+    }
+    return "https://images.unsplash.com/photo-1470274038469-958113db2384?auto=format&fit=crop&q=80&w=1200";
+  }, [recentEvent]);
+
+  const handleDismissRecentEventPopup = () => {
+    setShowRecentEventPopup(false);
+    sessionStorage.setItem("recent-event-popup-dismissed", "true");
+  };
+
   return (
     <main className="relative min-h-screen">
       <Navbar />
@@ -15,7 +70,7 @@ export default function Home() {
       {/* Program Highlights */}
       <section className="bg-background py-[var(--section-y)]">
         <div className="container mx-auto max-w-6xl px-[var(--gutter)]">
-          <div className="mb-12 text-center md:mb-16">
+          <FadeIn className="mb-12 text-center md:mb-16">
             <p className="text-sm font-medium text-muted">Brahma Kumaris Mulund Sub Zone</p>
             <h2 className="mt-3 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
               What we offer
@@ -23,7 +78,7 @@ export default function Home() {
             <p className="mx-auto mt-4 max-w-2xl text-base text-foreground/75">
               Programs for study, meditation, and community — in Lonavala and online.
             </p>
-          </div>
+          </FadeIn>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
             {[
@@ -52,7 +107,8 @@ export default function Home() {
                 img: "https://images.unsplash.com/photo-1499209974431-9eaa37a11144?auto=format&fit=crop&q=80&w=800"
               },
             ].map((item, i) => (
-              <article
+              <FadeIn key={i} delay={i * 0.05}>
+                <article
                 key={i}
                 className="overflow-hidden rounded-lg border border-border-subtle bg-surface"
               >
@@ -65,7 +121,8 @@ export default function Home() {
                   <h3 className="mt-1 text-lg font-semibold text-foreground">{item.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-foreground/70">{item.desc}</p>
                 </div>
-              </article>
+                </article>
+              </FadeIn>
             ))}
           </div>
         </div>
@@ -73,7 +130,7 @@ export default function Home() {
 
       {/* Weekday meditation */}
       <section className="border-y border-border-subtle bg-surface py-14 md:py-16">
-        <div className="container mx-auto max-w-3xl px-[var(--gutter)] text-center">
+        <FadeIn className="container mx-auto max-w-3xl px-[var(--gutter)] text-center">
           <h2 className="text-xl font-semibold text-foreground md:text-2xl">
             Weekday collective meditation
           </h2>
@@ -90,14 +147,14 @@ export default function Home() {
               <span>19:00 – 20:00</span>
             </div>
           </div>
-        </div>
+        </FadeIn>
       </section>
 
       {/* Contact / register interest */}
       <section className="bg-background py-[var(--section-y)]">
         <div className="container mx-auto max-w-5xl px-[var(--gutter)]">
           <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
-            <div>
+            <FadeIn>
               <h2 className="text-2xl font-semibold text-foreground md:text-3xl">Stay informed</h2>
               <p className="mt-4 text-base leading-relaxed text-foreground/75">
                 Hear about retreats, courses, and events in Lonavala and online.
@@ -109,9 +166,9 @@ export default function Home() {
                   <p className="mt-1 text-sm text-muted">Also connected with our Mumbai-area centres.</p>
                 </div>
               </div>
-            </div>
+            </FadeIn>
 
-            <div className="rounded-lg border border-border-subtle bg-surface p-6 md:p-8">
+            <FadeIn delay={0.1} className="rounded-lg border border-border-subtle bg-surface p-6 md:p-8">
               <form className="space-y-4">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <label className="sr-only" htmlFor="home-name">
@@ -150,7 +207,7 @@ export default function Home() {
                   Submit
                 </button>
               </form>
-            </div>
+            </FadeIn>
           </div>
         </div>
       </section>
@@ -247,6 +304,69 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      <AnimatePresence>
+        {showRecentEventPopup && recentEvent ? (
+          <motion.div
+            initial={{ opacity: 0, y: 24, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, scale: 0.98 }}
+            transition={{ duration: 0.26, ease: "easeOut" }}
+            className="fixed bottom-4 left-4 right-4 z-[80] md:left-auto md:right-6 md:w-[min(92vw,430px)]"
+          >
+            <div className="relative overflow-hidden rounded-2xl border border-white/70 bg-white/95 p-4 shadow-[0_24px_60px_rgba(28,25,23,0.24)] backdrop-blur">
+              <div className="pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full bg-primary/10 blur-2xl" />
+              <div className="flex items-start justify-between gap-3">
+                <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-2.5 py-1 text-[11px] font-semibold tracking-wide text-primary">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/60" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+                  </span>
+                  Featured Program
+                </div>
+                <button
+                  type="button"
+                  onClick={handleDismissRecentEventPopup}
+                  className="rounded-full p-1.5 text-zinc-500 hover:bg-zinc-100 hover:text-zinc-700"
+                  aria-label="Close recent event popup"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
+              <div className="mt-3 flex gap-3">
+                <div
+                  className="h-20 w-20 shrink-0 rounded-xl border border-border-subtle bg-cover bg-center"
+                  style={{ backgroundImage: `url(${recentEventImageUrl})` }}
+                />
+                <div className="min-w-0">
+                  <h3 className="line-clamp-2 text-base font-semibold text-foreground">{recentEvent.title}</h3>
+                  <p className="mt-1 line-clamp-2 text-sm text-foreground/70">
+                    {recentEvent.description?.trim() ||
+                      "Registrations are open now. Reserve your spot today."}
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                <Link
+                  href="/events"
+                  className="inline-flex min-h-10 items-center justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white hover:bg-primary-hover"
+                >
+                  View Event
+                </Link>
+                <button
+                  type="button"
+                  onClick={handleDismissRecentEventPopup}
+                  className="inline-flex min-h-10 items-center justify-center rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+                >
+                  Dismiss
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </main>
   );
 }

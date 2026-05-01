@@ -1,6 +1,7 @@
 "use client";
 
 import { Navbar } from "@/components/Navbar";
+import { FadeIn } from "@/components/animations";
 
 export default function AboutPage() {
   return (
@@ -11,7 +12,7 @@ export default function AboutPage() {
       <section className="pt-40 pb-24">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div>
+            <FadeIn>
               <span className="text-primary font-bold tracking-[0.3em] uppercase text-[10px] mb-6 block">Our Story</span>
               <h1 className="mb-8 text-3xl font-semibold leading-tight tracking-tight text-foreground md:text-4xl lg:text-5xl">
                 Transforming souls, <br />
@@ -20,22 +21,22 @@ export default function AboutPage() {
               <div className="space-y-6 text-lg font-light leading-relaxed opacity-80">
                 <p>
                   Established by the Brahma Kumaris Mulund Sub Zone, Parasmani takes its name 
-                  from the legendary "Philosopher&apos;s Stone." Just as it was believed to turn iron 
+                  from the legendary &ldquo;Philosopher&apos;s Stone.&rdquo; Just as it was believed to turn iron 
                   into gold, our retreat center is a place where mental and emotional states 
                   are transformed through spiritual empowerment.
                 </p>
                 <p>
                   Spread over 2 acres of serene mountain land in Lonavala, Parasmani is an oasis where time 
                   slows down—offering solace and renewal in nature&apos;s gentle whispers. We help you 
-                  rediscover the "Jewel" within: your true, innate spiritual potential.
+                  rediscover the &ldquo;Jewel&rdquo; within: your true, innate spiritual potential.
                 </p>
                 <p>
                   Guided by the visions of Brahma Baba, we bring people of all backgrounds together 
                   to find balance, harmony, and lasting happiness.
                 </p>
               </div>
-            </div>
-            <div className="relative">
+            </FadeIn>
+            <FadeIn delay={0.08} className="relative">
               <div className="aspect-square overflow-hidden rounded-lg border border-border-subtle shadow-sm">
                 <img 
                   src="https://images.unsplash.com/photo-1512100356956-c1367e394133?auto=format&fit=crop&q=80&w=1200" 
@@ -49,7 +50,7 @@ export default function AboutPage() {
                 </p>
                 <p className="text-xs tracking-widest uppercase opacity-40 font-bold">— Brahma Kumaris</p>
               </div>
-            </div>
+            </FadeIn>
           </div>
         </div>
       </section>
@@ -67,11 +68,11 @@ export default function AboutPage() {
               { t: "Love", d: "Universal brotherhood without boundaries." },
               { t: "Power", d: "The spiritual strength to overcome challenges." },
             ].map((item, i) => (
-              <div key={i} className="text-center">
+              <FadeIn key={i} delay={i * 0.06} className="text-center">
                 <div className="w-1.5 h-12 bg-primary/20 mx-auto mb-6" />
                 <h4 className="mb-3 text-xl font-semibold text-foreground">{item.t}</h4>
                 <p className="text-sm opacity-60 font-light">{item.d}</p>
-              </div>
+              </FadeIn>
             ))}
           </div>
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
 import {
   BookOpen,
@@ -11,6 +12,7 @@ import {
   Music,
   PlayCircle,
 } from "lucide-react";
+import { FadeIn } from "@/components/animations";
 
 const courses = [
   {
@@ -89,7 +91,7 @@ export default function LearnAndResourcesPage() {
       <Navbar />
 
       <section className="border-b border-border-subtle bg-surface pt-[var(--nav-stack)] pb-10 md:pb-14">
-        <div className="container mx-auto max-w-3xl px-[var(--gutter)]">
+        <FadeIn className="container mx-auto max-w-3xl px-[var(--gutter)]">
           <p className="text-sm font-medium text-muted">Brahma Kumaris · Knowledge</p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
             Learning and resources
@@ -97,7 +99,7 @@ export default function LearnAndResourcesPage() {
           <p className="mt-4 text-base leading-relaxed text-foreground/80">
             Self-paced courses, downloads, and links for Raja Yoga study and daily practice.
           </p>
-        </div>
+        </FadeIn>
       </section>
 
       {/* e-Learning */}
@@ -111,8 +113,12 @@ export default function LearnAndResourcesPage() {
           </div>
           <ul className="divide-y divide-border-subtle border-y border-border-subtle">
             {courses.map((course, i) => (
-              <li
+              <motion.li
                 key={i}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.4, delay: i * 0.04, ease: "easeOut" }}
                 className="flex flex-col gap-4 py-6 md:flex-row md:items-start md:justify-between md:gap-8"
               >
                 <div className="flex gap-4">
@@ -133,7 +139,7 @@ export default function LearnAndResourcesPage() {
                     Access <ArrowRight className="h-4 w-4" aria-hidden />
                   </button>
                 </div>
-              </li>
+              </motion.li>
             ))}
           </ul>
         </div>
@@ -150,8 +156,9 @@ export default function LearnAndResourcesPage() {
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {resources.map((item, i) => (
-              <div
+              <FadeIn
                 key={i}
+                delay={i * 0.05}
                 className="flex gap-4 rounded-lg border border-border-subtle bg-surface p-5"
               >
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-border-subtle bg-background text-primary">
@@ -164,7 +171,7 @@ export default function LearnAndResourcesPage() {
                     Open or download
                   </button>
                 </div>
-              </div>
+              </FadeIn>
             ))}
           </div>
         </div>
