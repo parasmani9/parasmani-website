@@ -13,6 +13,14 @@ interface EventInput {
   imageUrls?: string[];
   location?: string | null;
   isPublished?: boolean;
+  eventStartAt?: string | null;
+  eventEndAt?: string | null;
+  sessions?: Array<{
+    sessionName?: string;
+    startAt?: string;
+    endAt?: string;
+    isActive?: boolean;
+  }>;
 }
 
 async function isAdminAuthorized() {
@@ -29,7 +37,10 @@ export async function GET() {
     }
 
     const supabase = getSupabaseServerClient('service');
-    const { data, error } = await supabase.from('events').select('*').order('created_at', { ascending: false });
+    const { data, error } = await supabase
+      .from('events')
+      .select('*, event_sessions(*)')
+      .order('created_at', { ascending: false });
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 400 });
@@ -80,12 +91,34 @@ export async function POST(request: Request) {
         image_urls: sanitizedImageUrls,
         location: body.location?.trim() || null,
         is_published: body.isPublished ?? false,
+        event_start_at: body.eventStartAt ?? null,
+        event_end_at: body.eventEndAt ?? null,
       })
       .select('*')
       .single();
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
+    const validSessions = (body.sessions ?? []).filter(
+      (session) => session.sessionName && session.startAt && session.endAt
+    );
+
+    if (validSessions.length > 0) {
+      const { error: sessionInsertError } = await supabase.from('event_sessions').insert(
+        validSessions.map((session) => ({
+          event_id: data.id,
+          session_name: session.sessionName?.trim() ?? '',
+          start_at: session.startAt,
+          end_at: session.endAt,
+          is_active: session.isActive ?? true,
+        }))
+      );
+
+      if (sessionInsertError) {
+        return NextResponse.json({ error: sessionInsertError.message }, { status: 400 });
+      }
     }
 
     return NextResponse.json({ data });

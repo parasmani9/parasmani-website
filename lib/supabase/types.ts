@@ -10,6 +10,8 @@ export interface EventRow {
   image_urls: string[];
   location: string | null;
   is_published: boolean;
+  event_start_at: string | null;
+  event_end_at: string | null;
   registration_open_at: string | null;
   registration_close_at: string | null;
   created_at: string;

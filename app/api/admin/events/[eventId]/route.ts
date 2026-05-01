@@ -13,6 +13,8 @@ interface UpdateEventInput {
   imageUrls?: string[];
   location?: string | null;
   isPublished?: boolean;
+  eventStartAt?: string | null;
+  eventEndAt?: string | null;
 }
 
 async function isAdminAuthorized() {
@@ -52,6 +54,8 @@ export async function PATCH(
       ...(sanitizedImageUrls !== undefined ? { image_urls: sanitizedImageUrls } : {}),
       ...(body.location !== undefined ? { location: body.location?.trim() || null } : {}),
       ...(body.isPublished !== undefined ? { is_published: body.isPublished } : {}),
+      ...(body.eventStartAt !== undefined ? { event_start_at: body.eventStartAt } : {}),
+      ...(body.eventEndAt !== undefined ? { event_end_at: body.eventEndAt } : {}),
     };
 
     if (Object.keys(updatePayload).length === 0) {
@@ -71,6 +75,33 @@ export async function PATCH(
     }
 
     return NextResponse.json({ data });
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Unexpected server error' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  _request: Request,
+  { params }: { params: Promise<{ eventId: string }> }
+) {
+  try {
+    const isAuthorized = await isAdminAuthorized();
+    if (!isAuthorized) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { eventId } = await params;
+    const supabase = getSupabaseServerClient('service');
+    const { error } = await supabase.from('events').delete().eq('id', eventId);
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
+    return NextResponse.json({ ok: true });
   } catch (error) {
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'Unexpected server error' },
