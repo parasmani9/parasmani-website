@@ -111,7 +111,7 @@ export default function Home() {
                 title: "Wellbeing & Outreach", 
                 desc: "Tools for clarity and resilience in daily life and workplaces.",
                 tag: "Community",
-                img: "https://images.unsplash.com/photo-1485727749690-d091e8284ef3?auto=format&fit=crop&q=80&w=800"
+                img: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=800"
               },
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 0.05}>

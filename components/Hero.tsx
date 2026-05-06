@@ -21,37 +21,66 @@ const heroImages = [
 
 export function Hero() {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    const handleViewportChange = () => {
+      setIsDesktop(mediaQuery.matches);
+    };
+    handleViewportChange();
+    mediaQuery.addEventListener("change", handleViewportChange);
+    return () => {
+      mediaQuery.removeEventListener("change", handleViewportChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isDesktop) {
+      setActiveImageIndex(0);
+      return;
+    }
+
     const intervalId = window.setInterval(() => {
       setActiveImageIndex((previous) => (previous + 1) % heroImages.length);
     }, 4500);
     return () => {
       window.clearInterval(intervalId);
     };
-  }, []);
+  }, [isDesktop]);
 
   return (
     <section
-      className="relative flex min-h-[100dvh] flex-col justify-center border-b border-border-subtle bg-background pt-[var(--nav-height)]"
+      className="relative flex min-h-[88dvh] flex-col justify-center border-b border-border-subtle bg-background pt-[var(--nav-height)] md:min-h-[100dvh]"
       aria-label="Welcome"
     >
       <div className="absolute inset-0">
-        {heroImages.map((image, index) => (
-          <div
-            key={image}
-            className={`absolute inset-0 transition-opacity duration-700 ${index === activeImageIndex ? "opacity-100" : "opacity-0"}`}
-          >
-            <Image
-              src={image}
-              alt="Parasmani campus"
-              fill
-              priority={index === 0}
-              className="object-cover"
-              sizes="100vw"
-            />
-          </div>
-        ))}
+        {isDesktop ? (
+          heroImages.map((image, index) => (
+            <div
+              key={image}
+              className={`absolute inset-0 transition-opacity duration-700 ${index === activeImageIndex ? "opacity-100" : "opacity-0"}`}
+            >
+              <Image
+                src={image}
+                alt="Parasmani campus"
+                fill
+                priority={index === 0}
+                className="object-cover"
+                sizes="100vw"
+              />
+            </div>
+          ))
+        ) : (
+          <Image
+            src={heroImages[0]}
+            alt="Parasmani campus"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+        )}
         <div className="absolute inset-0 bg-black/45" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/35 to-black/20" />
       </div>
@@ -105,19 +134,21 @@ export function Hero() {
             </Link>
           </motion.div>
 
-          <div className="mt-6 flex justify-center gap-2" aria-label="Hero image carousel indicators">
-            {heroImages.map((_, index) => (
-              <button
-                key={index}
-                type="button"
-                onClick={() => setActiveImageIndex(index)}
-                className={`h-2.5 w-2.5 rounded-full transition-all ${
-                  index === activeImageIndex ? "bg-white" : "bg-white/50 hover:bg-white/70"
-                }`}
-                aria-label={`Show slide ${index + 1}`}
-              />
-            ))}
-          </div>
+          {isDesktop ? (
+            <div className="mt-6 flex justify-center gap-2" aria-label="Hero image carousel indicators">
+              {heroImages.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => setActiveImageIndex(index)}
+                  className={`h-2.5 w-2.5 rounded-full transition-all ${
+                    index === activeImageIndex ? "bg-white" : "bg-white/50 hover:bg-white/70"
+                  }`}
+                  aria-label={`Show slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          ) : null}
 
           <div
             className="mt-12 flex flex-wrap items-center justify-center gap-2 border-t border-white/25 pt-10"
