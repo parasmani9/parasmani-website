@@ -25,6 +25,7 @@ export function Navbar() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isHomeHeroState = pathname === "/" && !isScrolled;
 
   const isActiveLink = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
@@ -51,7 +52,9 @@ export function Navbar() {
           "flex h-[var(--nav-height)] items-center border-b transition-all duration-300",
           isScrolled
             ? "border-border-subtle bg-background/90 shadow-[0_1px_0_0_rgba(255,255,255,0.6)_inset] backdrop-blur-xl"
-            : "border-transparent bg-transparent"
+            : isHomeHeroState
+              ? "border-transparent bg-transparent"
+              : "border-transparent bg-transparent"
         )}
       >
         <div className="container mx-auto flex w-full max-w-full items-center justify-between gap-3 px-[var(--gutter)]">
@@ -60,14 +63,31 @@ export function Navbar() {
             className="flex min-h-[44px] shrink-0 items-center gap-2 sm:gap-3"
             aria-label="Parasmani home"
           >
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded border border-border-subtle bg-surface text-sm font-semibold text-primary">
+            <div
+              className={cn(
+                "flex h-9 w-9 shrink-0 items-center justify-center rounded border text-sm font-semibold",
+                isHomeHeroState
+                  ? "border-white/40 bg-white/10 text-white"
+                  : "border-border-subtle bg-surface text-primary"
+              )}
+            >
               P
             </div>
             <div className="min-w-0 leading-tight">
-              <span className="block truncate text-base font-semibold text-foreground sm:text-[1.05rem]">
+              <span
+                className={cn(
+                  "block truncate text-base font-semibold sm:text-[1.05rem]",
+                  isHomeHeroState ? "text-white" : "text-foreground"
+                )}
+              >
                 Parasmani
               </span>
-              <span className="hidden text-[11px] font-normal text-muted sm:block">
+              <span
+                className={cn(
+                  "hidden text-[11px] font-normal sm:block",
+                  isHomeHeroState ? "text-white/80" : "text-muted"
+                )}
+              >
                 Brahma Kumaris, Lonavala
               </span>
             </div>
@@ -81,7 +101,9 @@ export function Navbar() {
                   "inline-flex items-center gap-1.5 py-2 text-sm font-medium transition-colors",
                   isActiveLink("/what-we-offer")
                     ? "text-primary"
-                    : "text-foreground/80 hover:text-primary"
+                    : isHomeHeroState
+                      ? "text-white/90 hover:text-white"
+                      : "text-foreground/80 hover:text-primary"
                 )}
               >
                 What We Offer
@@ -110,7 +132,9 @@ export function Navbar() {
                   "relative py-2 text-sm font-medium transition-colors",
                   isActiveLink(link.href)
                     ? "text-primary"
-                    : "text-foreground/80 hover:text-primary"
+                    : isHomeHeroState
+                      ? "text-white/90 hover:text-white"
+                      : "text-foreground/80 hover:text-primary"
                 )}
               >
                 {link.name}
@@ -125,7 +149,10 @@ export function Navbar() {
 
           <button
             type="button"
-            className="flex min-h-[48px] min-w-[48px] items-center justify-center rounded-lg text-foreground hover:bg-foreground/5 md:hidden"
+            className={cn(
+              "flex min-h-[48px] min-w-[48px] items-center justify-center rounded-lg md:hidden",
+              isHomeHeroState ? "text-white hover:bg-white/10" : "text-foreground hover:bg-foreground/5"
+            )}
             onClick={() => setMobileMenuOpen((o) => !o)}
             aria-expanded={mobileMenuOpen}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}

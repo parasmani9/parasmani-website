@@ -51,8 +51,11 @@ const toTitleCase = (value: string) =>
     .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
     .join(" ");
 
-const defaultEventImageUrl =
-  "https://images.unsplash.com/photo-1470274038469-958113db2384?auto=format&fit=crop&q=80&w=1200";
+const defaultEventImageUrls = [
+  "/WhatsApp%20Image%202026-05-06%20at%2010.34.47%20PM.jpeg",
+  "/WhatsApp%20Image%202026-05-06%20at%2010.34.48%20PM.jpeg",
+  "/WhatsApp%20Image%202026-05-06%20at%2010.34.49%20PM.jpeg",
+];
 
 const isRenderableImageUrl = (value: string) => {
   try {
@@ -116,7 +119,7 @@ export default function EventsPage() {
     if (event.image_url && isRenderableImageUrl(event.image_url)) {
       return [event.image_url];
     }
-    return [defaultEventImageUrl];
+    return defaultEventImageUrls;
   };
 
   const handleNextImage = (eventId: string, totalImages: number) => {

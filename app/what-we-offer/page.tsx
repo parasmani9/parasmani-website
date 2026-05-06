@@ -1,5 +1,4 @@
 "use client";
-
 import { Navbar } from "@/components/Navbar";
 import { Sparkles, Brain, Clock, HelpCircle, House, CalendarRange, Heart } from "lucide-react";
 import { FadeIn } from "@/components/animations";

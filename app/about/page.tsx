@@ -38,14 +38,35 @@ export default function AboutPage() {
               </div>
             </FadeIn>
             <FadeIn delay={0.08} className="relative">
-              <div className="aspect-square overflow-hidden rounded-lg border border-border-subtle shadow-sm">
-                <Image 
-                  src="https://images.unsplash.com/photo-1512100356956-c1367e394133?auto=format&fit=crop&q=80&w=1200" 
-                  alt="Silent Meditation" 
-                  width={1200}
-                  height={1200}
-                  className="w-full h-full object-cover"
-                />
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                <div className="relative col-span-2 aspect-[16/10] overflow-hidden rounded-xl border border-border-subtle shadow-sm">
+                  <Image
+                    src="/Assets/WhatsApp%20Image%202026-05-06%20at%2010.34.48%20PM.jpeg"
+                    alt="Parasmani retreat building and lawn"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    priority
+                  />
+                </div>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-border-subtle shadow-sm">
+                  <Image
+                    src="/Assets/WhatsApp%20Image%202026-05-06%20at%2010.34.47%20PM.jpeg"
+                    alt="Parasmani meditation courtyard"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 50vw, 25vw"
+                  />
+                </div>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-border-subtle shadow-sm">
+                  <Image
+                    src="/WhatsApp%20Image%202026-05-06%20at%2010.34.49%20PM%20(1).jpeg"
+                    alt="Approach road and main Parasmani building"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 50vw, 25vw"
+                  />
+                </div>
               </div>
               <div className="absolute -bottom-10 -left-10 hidden max-w-xs rounded-lg border border-border-subtle bg-surface p-8 shadow-md md:block">
                 <p className="mb-2 text-lg font-medium text-primary">

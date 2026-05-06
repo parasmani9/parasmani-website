@@ -20,6 +20,13 @@ interface HomeEventItem {
   image_urls?: string[];
 }
 
+const campusPhotoPaths = [
+  "/WhatsApp%20Image%202026-05-06%20at%2010.34.49%20PM%20(1).jpeg",
+  "/WhatsApp%20Image%202026-05-06%20at%2010.34.49%20PM%20(2).jpeg",
+  "/WhatsApp%20Image%202026-05-06%20at%2010.34.49%20PM.jpeg",
+  "/WhatsApp%20Image%202026-05-06%20at%2010.34.48%20PM.jpeg",
+];
+
 export default function Home() {
   const [recentEvent, setRecentEvent] = useState<HomeEventItem | null>(null);
   const [showRecentEventPopup, setShowRecentEventPopup] = useState(false);
@@ -54,7 +61,7 @@ export default function Home() {
     if (candidate) {
       return candidate;
     }
-    return "https://images.unsplash.com/photo-1470274038469-958113db2384?auto=format&fit=crop&q=80&w=1200";
+    return campusPhotoPaths[0];
   }, [recentEvent]);
 
   const handleDismissRecentEventPopup = () => {
@@ -98,13 +105,13 @@ export default function Home() {
                 title: "Raja Yoga Study", 
                 desc: "Structured study of consciousness, values, and spiritual principles.",
                 tag: "Knowledge",
-                img: "https://images.unsplash.com/photo-1529694337969-dfde8cba85ad?auto=format&fit=crop&q=80&w=800"
+                img: "https://images.unsplash.com/photo-1474418397713-7ede21d49118?auto=format&fit=crop&q=80&w=800"
               },
               { 
                 title: "Wellbeing & Outreach", 
                 desc: "Tools for clarity and resilience in daily life and workplaces.",
                 tag: "Community",
-                img: "https://images.unsplash.com/photo-1499209974431-9eaa37a11144?auto=format&fit=crop&q=80&w=800"
+                img: "https://images.unsplash.com/photo-1485727749690-d091e8284ef3?auto=format&fit=crop&q=80&w=800"
               },
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 0.05}>
