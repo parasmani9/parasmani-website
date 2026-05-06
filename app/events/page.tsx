@@ -220,8 +220,8 @@ export default function EventsPage() {
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      <section className="pt-40 pb-14 bg-surface border-b border-border-subtle">
-        <div className="container mx-auto px-6">
+      <section className="border-b border-border-subtle bg-surface pb-10 pt-[calc(var(--nav-stack)+2.5rem)] md:pb-14 md:pt-[calc(var(--nav-stack)+3.5rem)]">
+        <div className="container mx-auto px-[var(--gutter)]">
           <div className="max-w-3xl">
             <h1 className="mb-4 text-3xl font-semibold leading-tight tracking-tight text-foreground md:text-4xl">
               Events and programs
@@ -234,8 +234,8 @@ export default function EventsPage() {
         </div>
       </section>
 
-      <section className="sticky top-[80px] z-30 bg-background border-b border-border-subtle py-3">
-        <div className="container mx-auto px-6 flex items-center gap-4 overflow-x-auto">
+      <section className="sticky top-[var(--nav-stack)] z-30 border-b border-border-subtle bg-background py-3">
+        <div className="container mx-auto flex items-center gap-3 overflow-x-auto px-[var(--gutter)] pb-0.5 [-webkit-overflow-scrolling:touch]">
           {(["all", "virtual", "in-person", "hybrid"] as const).map((option) => (
             <button
               key={option}
@@ -254,8 +254,8 @@ export default function EventsPage() {
         </div>
       </section>
 
-      <section className="py-12">
-        <div className="container mx-auto px-6">
+      <section className="py-10 md:py-12">
+        <div className="container mx-auto px-[var(--gutter)]">
           {loading && (
             <div className="space-y-6">
               <div className="flex items-center gap-2 text-sm text-foreground/70">
@@ -345,12 +345,12 @@ export default function EventsPage() {
                     })()}
                   </div>
                   <div className="p-6">
-                    <div className="flex items-center justify-between gap-2 text-xs font-medium text-foreground/60">
-                      <span>{toTitleCase(event.event_type)}</span>
+                    <div className="flex flex-col gap-1 text-xs font-medium text-foreground/60 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
+                      <span className="shrink-0">{toTitleCase(event.event_type)}</span>
                       {event.location ? (
-                        <span className="inline-flex items-center gap-1">
-                          <MapPin className="w-3.5 h-3.5" />
-                          {event.location}
+                        <span className="inline-flex min-w-0 items-center gap-1">
+                          <MapPin className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                          <span className="truncate">{event.location}</span>
                         </span>
                       ) : null}
                     </div>
@@ -358,9 +358,9 @@ export default function EventsPage() {
                     <p className="mt-2 text-sm text-foreground/70 leading-relaxed">
                       {event.description?.trim() || "Simple registration form only."}
                     </p>
-                    <div className="mt-6 flex items-center gap-4">
-                      <p className="text-xs text-foreground/60 inline-flex items-center gap-2">
-                        <Calendar className="w-3.5 h-3.5" />
+                    <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+                      <p className="inline-flex items-center gap-2 text-xs text-foreground/60">
+                        <Calendar className="h-3.5 w-3.5 shrink-0" aria-hidden />
                         {event.event_sessions.length} session{event.event_sessions.length > 1 ? "s" : ""}
                       </p>
                       <button
@@ -386,9 +386,9 @@ export default function EventsPage() {
                           .map((session) => (
                           <label
                             key={session.id}
-                            className="flex items-center justify-between rounded-md border border-border-subtle px-3 py-2 cursor-pointer"
+                            className="flex cursor-pointer flex-col gap-3 rounded-md border border-border-subtle px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-2"
                           >
-                            <div className="flex flex-col">
+                            <div className="flex min-w-0 flex-col">
                               <span className="text-sm text-foreground">{session.session_name}</span>
                               <span className="text-xs text-foreground/60">
                                 {new Date(session.start_at).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })} - {new Date(session.end_at).toLocaleString('en-US', { timeStyle: 'short' })}
@@ -399,7 +399,7 @@ export default function EventsPage() {
                               aria-label={`Toggle ${session.session_name}`}
                               onClick={() => toggleSession(session.id)}
                               className={cn(
-                                "w-6 h-6 rounded border flex items-center justify-center shrink-0 ml-4",
+                                "ml-0 flex h-6 w-6 shrink-0 items-center justify-center self-end rounded border sm:self-auto sm:ml-4",
                                 selectedSessionIds.includes(session.id)
                                   ? "bg-primary border-primary text-white"
                                   : "bg-white border-border-subtle text-transparent"
@@ -514,7 +514,7 @@ export default function EventsPage() {
             initial={{ opacity: 0, y: 24, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.98 }}
-            className="fixed bottom-6 right-6 z-[60] w-[min(92vw,360px)] rounded-lg border border-green-200 bg-green-50 p-4 shadow-lg"
+            className="fixed bottom-4 left-4 right-4 z-[60] rounded-lg border border-green-200 bg-green-50 p-4 shadow-lg sm:bottom-6 sm:left-auto sm:right-6 sm:w-[min(92vw,360px)]"
           >
             <p className="text-sm font-semibold text-green-800">Success</p>
             <p className="mt-1 text-sm text-green-700">{submitMessage}</p>

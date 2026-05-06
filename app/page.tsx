@@ -109,7 +109,6 @@ export default function Home() {
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 0.05}>
                 <article
-                key={i}
                 className="overflow-hidden rounded-lg border border-border-subtle bg-surface"
               >
                 <div

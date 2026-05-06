@@ -9,8 +9,8 @@ export default function DonatePage() {
     <main className="min-h-screen bg-background">
       <Navbar />
       
-      <section className="pt-48 pb-24 text-center">
-        <FadeIn className="container mx-auto px-6">
+      <section className="pb-24 text-center pt-[calc(var(--nav-stack)+2.5rem)] md:pb-24 md:pt-[calc(var(--nav-stack)+3rem)]">
+        <FadeIn className="container mx-auto px-[var(--gutter)]">
           <div className="max-w-3xl mx-auto">
             <span className="text-xs uppercase tracking-[0.4em] text-primary font-bold mb-6 block">Support Our Vision</span>
             <h1 className="mb-8 text-3xl font-semibold tracking-tight text-foreground md:text-4xl lg:text-5xl">
@@ -24,8 +24,8 @@ export default function DonatePage() {
         </FadeIn>
       </section>
 
-      <section className="pb-32">
-        <div className="container mx-auto px-6">
+      <section className="pb-24 md:pb-32">
+        <div className="container mx-auto px-[var(--gutter)]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             
             {/* Payment Details */}

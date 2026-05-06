@@ -62,13 +62,13 @@ export default function WhatWeOfferPage() {
       <Navbar />
       
       {/* Hero */}
-      <section className="pt-48 pb-24 bg-surface/50 border-b border-border-subtle">
-        <FadeIn className="container mx-auto px-6 text-center">
+      <section className="border-b border-border-subtle bg-surface/50 pb-16 pt-[calc(var(--nav-stack)+2.5rem)] md:pb-24 md:pt-[calc(var(--nav-stack)+3rem)]">
+        <FadeIn className="container mx-auto px-[var(--gutter)] text-center">
           <span className="uppercase tracking-[0.4em] text-[10px] font-bold text-primary mb-6 block">Holistic Services</span>
           <h1 className="mb-6 text-3xl font-semibold tracking-tight text-foreground md:text-4xl lg:text-5xl">
             What we offer
           </h1>
-          <p className="text-lg font-light opacity-60 max-w-2xl mx-auto leading-relaxed">
+          <p className="mx-auto max-w-2xl text-base font-light leading-relaxed opacity-60 md:text-lg">
             From the core philosophy of Raja Yoga to immersive retreats, 
             explore the tools we provide for your spiritual journey.
           </p>
@@ -76,8 +76,8 @@ export default function WhatWeOfferPage() {
       </section>
 
       {/* Grid of Hub */}
-      <section className="py-32">
-        <div className="container mx-auto px-6">
+      <section className="py-16 md:py-32">
+        <div className="container mx-auto px-[var(--gutter)]">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
             {offerings.map((item, i) => (
               <FadeIn

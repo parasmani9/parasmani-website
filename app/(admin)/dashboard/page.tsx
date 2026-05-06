@@ -95,19 +95,19 @@ export default async function AdminDashboard() {
             {recentRegistrations.map((registration) => (
               <div
                 key={registration.id}
-                className="p-4 hover:bg-zinc-50 transition-colors flex items-center justify-between"
+                className="flex flex-col gap-3 p-4 transition-colors hover:bg-zinc-50 sm:flex-row sm:items-center sm:justify-between"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center font-bold text-zinc-400 text-xs text-center leading-none">
+                <div className="flex min-w-0 items-center gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-center text-xs font-bold leading-none text-zinc-400">
                     {getInitials(registration.full_name)}
                   </div>
-                  <div>
-                    <p className="font-semibold text-sm">{registration.full_name}</p>
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold">{registration.full_name}</p>
                     <p className="text-xs text-zinc-500">{getEventTitle(registration)}</p>
-                    <p className="text-xs text-zinc-400">{registration.email}</p>
+                    <p className="truncate text-xs text-zinc-400">{registration.email}</p>
                   </div>
                 </div>
-                <div className="text-right">
+                <div className="shrink-0 text-left sm:text-right">
                   <p className="text-xs text-zinc-400">
                     {new Date(registration.created_at).toLocaleString('en-IN', {
                       day: '2-digit',

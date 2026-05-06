@@ -10,16 +10,16 @@ export default function AboutPage() {
       <Navbar />
       
       {/* Narrative Section */}
-      <section className="pt-40 pb-24">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      <section className="pb-16 pt-[calc(var(--nav-stack)+2rem)] md:pb-24">
+        <div className="container mx-auto px-[var(--gutter)]">
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
             <FadeIn>
               <span className="text-primary font-bold tracking-[0.3em] uppercase text-[10px] mb-6 block">Our Story</span>
               <h1 className="mb-8 text-3xl font-semibold leading-tight tracking-tight text-foreground md:text-4xl lg:text-5xl">
                 Transforming souls, <br />
                 like the touchstone
               </h1>
-              <div className="space-y-6 text-lg font-light leading-relaxed opacity-80">
+              <div className="space-y-6 text-base font-light leading-relaxed opacity-80 md:text-lg">
                 <p>
                   Established by the Brahma Kumaris Mulund Sub Zone, Parasmani takes its name 
                   from the legendary &ldquo;Philosopher&apos;s Stone.&rdquo; Just as it was believed to turn iron 

@@ -528,7 +528,7 @@ export default function AdminEventsPage() {
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, ease: 'easeOut' }}
-        className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm"
+        className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm sm:p-6"
       >
         <h1 className="text-xl font-semibold text-zinc-900">
           {editingEvent ? `Edit: ${editingEvent.title}` : 'Create Event'}
@@ -640,7 +640,7 @@ export default function AdminEventsPage() {
                     .map((imageUrl) => (
                       <div
                         key={imageUrl}
-                        className="flex items-center justify-between gap-3 rounded-md border border-zinc-200 bg-zinc-50 px-3 py-2"
+                        className="flex flex-col gap-2 rounded-md border border-zinc-200 bg-zinc-50 px-3 py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3"
                       >
                         <p className="truncate text-xs text-zinc-600">{imageUrl}</p>
                         <button
@@ -838,9 +838,9 @@ export default function AdminEventsPage() {
                     .map((session) => (
                       <div
                         key={session.id}
-                        className="flex items-center justify-between gap-3 rounded-md border border-zinc-200 bg-zinc-50 px-3 py-2"
+                        className="flex flex-col gap-3 rounded-md border border-zinc-200 bg-zinc-50 px-3 py-3 sm:flex-row sm:items-center sm:justify-between"
                       >
-                        <div>
+                        <div className="min-w-0 flex-1">
                           <p className="text-sm font-medium text-zinc-900">{session.session_name}</p>
                           <p className="text-xs text-zinc-600">
                             {new Date(session.start_at).toLocaleString('en-IN', {
@@ -858,7 +858,7 @@ export default function AdminEventsPage() {
                             })}
                           </p>
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex shrink-0 flex-wrap gap-2 sm:justify-end">
                           <button
                             type="button"
                             onClick={() => handleEditSession(session)}
@@ -911,7 +911,7 @@ export default function AdminEventsPage() {
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.08, ease: 'easeOut' }}
-        className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm"
+        className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm sm:p-6"
       >
         <h2 className="text-lg font-semibold text-zinc-900">Existing Events</h2>
         {isLoading ? <p className="mt-3 text-sm text-zinc-600">Loading events...</p> : null}
@@ -926,17 +926,17 @@ export default function AdminEventsPage() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.25, delay: index * 0.04 }}
-              className="rounded-lg border border-zinc-200 bg-zinc-50 p-4 flex items-start justify-between gap-4"
+              className="flex flex-col gap-4 rounded-lg border border-zinc-200 bg-zinc-50 p-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4"
             >
-              <div>
+              <div className="min-w-0 flex-1">
                 <p className="text-base font-semibold text-zinc-900">{event.title}</p>
-                <p className="text-xs text-zinc-500 mt-1">/{event.slug}</p>
-                <p className="text-xs text-zinc-600 mt-2">
+                <p className="mt-1 truncate text-xs text-zinc-500">/{event.slug}</p>
+                <p className="mt-2 text-xs text-zinc-600">
                   {toTitleCase(event.event_type)} • {event.is_published ? 'Published' : 'Draft'}
                 </p>
-                <p className="text-xs text-zinc-500 mt-1">{(event.image_urls ?? []).length} image(s)</p>
+                <p className="mt-1 text-xs text-zinc-500">{(event.image_urls ?? []).length} image(s)</p>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex w-full shrink-0 flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:justify-end">
                 <button
                   type="button"
                   onClick={() => handleExportRegistrationsCsv(event)}
