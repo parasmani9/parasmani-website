@@ -30,6 +30,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Only image files are supported' }, { status: 400 });
     }
 
+    // Safeguard: reject files over 3MB on server side
+    if (file.size > 3 * 1024 * 1024) {
+      return NextResponse.json(
+        { error: 'Image size too large (maximum allowed is 3MB)' },
+        { status: 400 }
+      );
+    }
+
     const fileBuffer = await file.arrayBuffer();
     const fileExtension = file.name.includes('.') ? file.name.split('.').pop() : 'jpg';
     const filePath = `events/${Date.now()}-${randomUUID()}.${fileExtension}`;

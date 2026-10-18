@@ -28,3 +28,37 @@ export interface EventSessionRow {
   created_at: string;
   updated_at: string;
 }
+
+export type InventoryUnit = 'pcs' | 'meters' | 'rolls' | 'boxes' | 'packets' | 'kg' | 'liters' | 'sets';
+
+export interface InventoryItemRow {
+  id: string;
+  name: string;
+  category: string;
+  unit: string;
+  current_stock: number;
+  min_alert_stock?: number;
+  expiry_date: string | null;
+  expiry_alert_days: number;
+  batch_number: string | null;
+  cost_per_unit: number;
+  supplier_name: string | null;
+  supplier_contact: string | null;
+  location: string | null;
+  image_url: string | null;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface InventoryLogRow {
+  id: string;
+  item_id: string;
+  change_type: 'stock_in' | 'stock_out' | 'set';
+  quantity_change: number;
+  resulting_stock: number;
+  reason: string | null;
+  recorded_by: string | null;
+  created_at: string;
+}
+

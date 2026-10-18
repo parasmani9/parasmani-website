@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Calendar, ExternalLink, LayoutDashboard, Menu, X } from 'lucide-react';
+import { Calendar, ExternalLink, LayoutDashboard, Menu, Package, X } from 'lucide-react';
 
 import { LogoutButton } from '@/components/admin/logout-button';
 import { cn } from '@/lib/utils';
@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 const navItems = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Manage Events', href: '/dashboard/events', icon: Calendar },
+  { name: 'Inventory', href: '/dashboard/inventory', icon: Package },
 ];
 
 export function AdminAppShell({ children }: { children: ReactNode }) {

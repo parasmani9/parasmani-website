@@ -133,6 +133,13 @@ export default async function AdminDashboard() {
               <p className="text-sm font-bold group-hover:text-primary transition-colors">Create New Event</p>
               <p className="text-xs text-zinc-400">Create or edit event content.</p>
             </Link>
+            <Link
+              href="/dashboard/inventory"
+              className="block w-full text-left p-4 rounded-xl border border-zinc-100 hover:border-primary/50 hover:bg-primary/5 transition-all group"
+            >
+              <p className="text-sm font-bold group-hover:text-primary transition-colors">Manage Inventory</p>
+              <p className="text-xs text-zinc-400">Track civil materials, wires, linen & stock.</p>
+            </Link>
           </div>
         </div>
       </div>
