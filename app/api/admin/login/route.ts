@@ -16,7 +16,7 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json()) as LoginBody;
     const email = body.email?.trim().toLowerCase();
-    const password = body.password ?? '';
+    const password = body.password?.trim() ?? '';
     const adminCredentials = getAdminCredentials();
 
     if (email !== adminCredentials.email || password !== adminCredentials.password) {
@@ -26,10 +26,12 @@ export async function POST(request: Request) {
     const token = createAdminSessionToken(email);
     const response = NextResponse.json({ ok: true });
 
+    const isSecure = request.url.startsWith('https://') || process.env.NODE_ENV === 'production';
+
     response.cookies.set(ADMIN_SESSION_COOKIE, token, {
       httpOnly: true,
       sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
+      secure: isSecure,
       path: '/',
       maxAge: getAdminSessionTtl(),
     });
