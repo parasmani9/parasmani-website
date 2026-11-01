@@ -20,28 +20,129 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const search = searchParams.get('search')?.trim().toLowerCase();
     const category = searchParams.get('category')?.trim();
+    const expiryFilter = searchParams.get('expiryFilter')?.trim();
+    const sortBy = searchParams.get('sortBy')?.trim() || 'updated_desc';
+    const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10) || 1);
+    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') || '6', 10) || 6));
+
+    const from = (page - 1) * limit;
+    const to = from + limit - 1;
 
     const supabase = getSupabaseServerClient('service');
+
     let query = supabase
       .from('inventory_items')
-      .select('*')
-      .order('updated_at', { ascending: false });
+      .select('*', { count: 'exact' });
 
-    if (category && category !== 'All') {
+    // Category filter
+    if (category && category !== 'All' && category !== 'All Categories') {
       query = query.eq('category', category);
     }
 
+    // Search filter across name, location, and batch_number
     if (search) {
-      query = query.ilike('name', `%${search}%`);
+      const sanitized = search.replace(/[,()]/g, ' ').trim();
+      if (sanitized) {
+        query = query.or(`name.ilike.%${sanitized}%,location.ilike.%${sanitized}%,batch_number.ilike.%${sanitized}%`);
+      }
     }
 
-    const { data, error } = await query;
+    // Expiry filter
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayStr = today.toISOString().slice(0, 10);
+
+    if (expiryFilter === 'expired') {
+      query = query.not('expiry_date', 'is', null).lt('expiry_date', todayStr);
+    } else if (expiryFilter === 'non_perishable') {
+      query = query.is('expiry_date', null);
+    } else if (expiryFilter === 'expiring') {
+      const alertWindow = new Date();
+      alertWindow.setDate(alertWindow.getDate() + 30);
+      const alertWindowStr = alertWindow.toISOString().slice(0, 10);
+      query = query.gte('expiry_date', todayStr).lte('expiry_date', alertWindowStr);
+    }
+
+    // Sorting
+    switch (sortBy) {
+      case 'name_asc':
+        query = query.order('name', { ascending: true });
+        break;
+      case 'name_desc':
+        query = query.order('name', { ascending: false });
+        break;
+      case 'stock_asc':
+        query = query.order('current_stock', { ascending: true });
+        break;
+      case 'stock_desc':
+        query = query.order('current_stock', { ascending: false });
+        break;
+      case 'expiry_asc':
+        query = query.order('expiry_date', { ascending: true, nullsFirst: false });
+        break;
+      case 'expiry_desc':
+        query = query.order('expiry_date', { ascending: false, nullsFirst: false });
+        break;
+      case 'updated_desc':
+      default:
+        query = query.order('updated_at', { ascending: false });
+        break;
+    }
+
+    // Pagination slice
+    query = query.range(from, to);
+
+    // Parallel fetch: current page items + metadata for global stats
+    const [{ data, count, error }, { data: allItems }] = await Promise.all([
+      query,
+      supabase.from('inventory_items').select('expiry_date, expiry_alert_days'),
+    ]);
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 
-    return NextResponse.json({ data: data ?? [] });
+    // Calculate global stats across all catalog items
+    const totalCount = allItems?.length || 0;
+    let expiredCount = 0;
+    let expiringCount = 0;
+    let nonPerishableCount = 0;
+
+    allItems?.forEach((item) => {
+      if (!item.expiry_date) {
+        nonPerishableCount++;
+        return;
+      }
+      const exp = new Date(item.expiry_date);
+      exp.setHours(0, 0, 0, 0);
+      const diffDays = Math.ceil((exp.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+      const alertDays = item.expiry_alert_days || 30;
+
+      if (diffDays < 0) {
+        expiredCount++;
+      } else if (diffDays <= alertDays) {
+        expiringCount++;
+      }
+    });
+
+    const totalFiltered = count ?? 0;
+    const totalPages = Math.ceil(totalFiltered / limit) || 1;
+
+    return NextResponse.json({
+      data: data ?? [],
+      pagination: {
+        page,
+        limit,
+        total: totalFiltered,
+        totalPages,
+      },
+      stats: {
+        total: totalCount,
+        expiredCount,
+        expiringCount,
+        nonPerishableCount,
+      },
+    });
   } catch (error) {
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'Unexpected server error' },
