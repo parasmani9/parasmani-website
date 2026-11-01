@@ -33,6 +33,40 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns,
   },
+  async redirects() {
+    return [
+      {
+        source: "/admin/dashboard",
+        destination: "/dashboard",
+        permanent: false,
+      },
+      {
+        source: "/admin/dashboard/:path*",
+        destination: "/dashboard/:path*",
+        permanent: false,
+      },
+      {
+        source: "/admin/products/new",
+        destination: "/dashboard/inventory/new",
+        permanent: false,
+      },
+      {
+        source: "/admin/inventory/:path*",
+        destination: "/dashboard/inventory/:path*",
+        permanent: false,
+      },
+      {
+        source: "/admin/events/:path*",
+        destination: "/dashboard/events/:path*",
+        permanent: false,
+      },
+      {
+        source: "/admin",
+        destination: "/dashboard",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

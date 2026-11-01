@@ -300,7 +300,7 @@ export default function Home() {
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="hover:text-white">
+                <Link href="/dashboard" prefetch={false} className="hover:text-white">
                   Facilitator dashboard
                 </Link>
               </li>

@@ -70,6 +70,7 @@ export function AdminAppShell({ children }: { children: ReactNode }) {
         <div className="border-t border-white/5 p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
           <Link
             href="/"
+            prefetch={false}
             onClick={handleCloseMobileNav}
             className="flex items-center gap-3 px-4 py-3 text-sm text-white/50 transition-colors hover:text-white"
           >
