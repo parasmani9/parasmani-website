@@ -1,10 +1,8 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 export default function AdminLoginPage() {
-  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,8 +25,7 @@ export default function AdminLoginPage() {
         throw new Error(payload.error ?? 'Unable to login');
       }
 
-      router.push('/dashboard');
-      router.refresh();
+      window.location.href = '/dashboard';
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : 'Unexpected error');
     } finally {
