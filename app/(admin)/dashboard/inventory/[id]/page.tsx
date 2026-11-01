@@ -1,31 +1,21 @@
 'use client';
 
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import {
   AlertCircle,
-  AlertTriangle,
   ArrowDownRight,
   ArrowLeft,
   ArrowUpRight,
-  BellRing,
-  Calendar,
   CheckCircle2,
   Clock,
-  DollarSign,
   Edit2,
-  Layers,
   Loader2,
-  MapPin,
-  Minus,
   Package,
-  Plus,
   ShieldAlert,
-  Tag,
   Trash2,
-  User,
 } from 'lucide-react';
 
 import type { InventoryItemRow, InventoryLogRow } from '@/lib/supabase/types';
@@ -52,7 +42,7 @@ export default function InventoryItemDetailPage() {
     setTimeout(() => setToastMsg(null), 3500);
   };
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     if (!id) return;
     try {
       const [itemRes, logsRes] = await Promise.all([
@@ -72,11 +62,11 @@ export default function InventoryItemDetailPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     loadData();
-  }, [id]);
+  }, [loadData]);
 
   const handleAdjustStock = async (e: FormEvent) => {
     e.preventDefault();

@@ -9,17 +9,22 @@ interface AdminSessionPayload {
 }
 
 function getAdminAuthSecret() {
-  return (
-    process.env.ADMIN_SESSION_SECRET ||
-    '7b2e3b5c3c233964ebde8a9f715bcbd73b4075cdcf099f9b1eec29fdc4d90ab6'
-  );
+  const secret = process.env.ADMIN_SESSION_SECRET;
+  if (!secret) {
+    throw new Error('Missing ADMIN_SESSION_SECRET');
+  }
+  return secret;
 }
 
 export function getAdminCredentials() {
-  const email = process.env.ADMIN_EMAIL || 'admin@bkparasmani.com';
-  const password = process.env.ADMIN_PASSWORD || 'admin12345';
+  const email = process.env.ADMIN_EMAIL;
+  const password = process.env.ADMIN_PASSWORD;
 
-  return { email: email.trim().toLowerCase(), password: password.trim() };
+  if (!email || !password) {
+    throw new Error('Missing ADMIN_EMAIL or ADMIN_PASSWORD');
+  }
+
+  return { email: email.trim().toLowerCase(), password };
 }
 
 function toBase64Url(value: string) {
@@ -47,24 +52,24 @@ export function verifyAdminSessionToken(token: string | undefined) {
     return false;
   }
 
+  const [encodedPayload, signature] = token.split('.');
+  if (!encodedPayload || !signature) {
+    return false;
+  }
+
+  const expectedSignature = signPayload(encodedPayload);
+  const signatureBuffer = Buffer.from(signature);
+  const expectedBuffer = Buffer.from(expectedSignature);
+
+  if (signatureBuffer.length !== expectedBuffer.length) {
+    return false;
+  }
+
+  if (!timingSafeEqual(signatureBuffer, expectedBuffer)) {
+    return false;
+  }
+
   try {
-    const [encodedPayload, signature] = token.split('.');
-    if (!encodedPayload || !signature) {
-      return false;
-    }
-
-    const expectedSignature = signPayload(encodedPayload);
-    const signatureBuffer = Buffer.from(signature);
-    const expectedBuffer = Buffer.from(expectedSignature);
-
-    if (signatureBuffer.length !== expectedBuffer.length) {
-      return false;
-    }
-
-    if (!timingSafeEqual(signatureBuffer, expectedBuffer)) {
-      return false;
-    }
-
     const payload = JSON.parse(
       Buffer.from(encodedPayload, 'base64url').toString('utf-8')
     ) as AdminSessionPayload;

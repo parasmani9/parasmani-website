@@ -27,7 +27,8 @@ export default function AdminLoginPage() {
         throw new Error(payload.error ?? 'Unable to login');
       }
 
-      window.location.href = '/dashboard';
+      router.push('/dashboard');
+      router.refresh();
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : 'Unexpected error');
     } finally {

@@ -69,7 +69,7 @@ export async function PATCH(
       notes,
     } = body;
 
-    const updates: Record<string, any> = {};
+    const updates: Record<string, unknown> = {};
     if (typeof name === 'string' && name.trim()) updates.name = name.trim();
     if (typeof category === 'string' && category.trim()) updates.category = category.trim();
     if (typeof unit === 'string' && unit.trim()) updates.unit = unit.trim().toLowerCase();
