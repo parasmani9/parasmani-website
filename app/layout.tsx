@@ -12,6 +12,15 @@ export const metadata: Metadata = {
   title: "Parasmani Meditation & Retreat Center | Lonavala",
   description:
     "Parasmani, Lonavala — Brahma Kumaris Mulund Sub Zone. Raja Yoga meditation, programs, and spiritual study.",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({
