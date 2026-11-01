@@ -348,8 +348,8 @@ export default function InventoryDashboardPage() {
         </div>
       </div>
 
-      {/* Stat KPI Cards (Global Catalog Metrics) */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      {/* Stat KPI Cards (Global Catalog Metrics - Mobile-Optimized) */}
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {/* Card 1: Total Products */}
         <button
           type="button"
@@ -357,25 +357,25 @@ export default function InventoryDashboardPage() {
             setExpiryFilter('all');
             setPage(1);
           }}
-          className={`group flex flex-col justify-between rounded-2xl bg-white p-5 text-left border shadow-sm transition-all hover:shadow-md active:scale-[0.99] ${
+          className={`group flex flex-col justify-between rounded-2xl bg-white p-3.5 sm:p-5 text-left border shadow-sm transition-all hover:shadow-md active:scale-[0.99] ${
             expiryFilter === 'all'
               ? 'border-blue-500 ring-2 ring-blue-500/20'
               : 'border-zinc-200/80 hover:border-zinc-300'
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+            <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-zinc-500">
               Total Products
             </span>
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+            <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
               <Package className="h-4 w-4" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline justify-between">
-            <span className="text-3xl font-extrabold tracking-tight text-zinc-900">
+          <div className="mt-2.5 sm:mt-3 flex items-baseline justify-between">
+            <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900">
               {stats.total.toLocaleString('en-IN')}
             </span>
-            <span className="text-xs font-medium text-zinc-400">All Catalog</span>
+            <span className="text-[11px] sm:text-xs font-medium text-zinc-400">All Catalog</span>
           </div>
         </button>
 
@@ -386,29 +386,29 @@ export default function InventoryDashboardPage() {
             setExpiryFilter(expiryFilter === 'expired' ? 'all' : 'expired');
             setPage(1);
           }}
-          className={`group flex flex-col justify-between rounded-2xl bg-white p-5 text-left border shadow-sm transition-all hover:shadow-md active:scale-[0.99] ${
+          className={`group flex flex-col justify-between rounded-2xl bg-white p-3.5 sm:p-5 text-left border shadow-sm transition-all hover:shadow-md active:scale-[0.99] ${
             expiryFilter === 'expired'
               ? 'border-rose-500 ring-2 ring-rose-500/20'
               : 'border-zinc-200/80 hover:border-rose-200'
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-rose-600">
+            <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-rose-600">
               Expired Items
             </span>
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-rose-50 text-rose-600">
+            <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-rose-50 text-rose-600">
               <ShieldAlert className="h-4 w-4" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline justify-between">
+          <div className="mt-2.5 sm:mt-3 flex items-baseline justify-between">
             <span
-              className={`text-3xl font-extrabold tracking-tight ${
+              className={`text-2xl sm:text-3xl font-extrabold tracking-tight ${
                 stats.expiredCount > 0 ? 'text-rose-600' : 'text-zinc-900'
               }`}
             >
               {stats.expiredCount.toLocaleString('en-IN')}
             </span>
-            <span className="text-xs font-medium text-zinc-400">Action Required</span>
+            <span className="text-[11px] sm:text-xs font-medium text-zinc-400">Action Required</span>
           </div>
         </button>
 
@@ -419,29 +419,29 @@ export default function InventoryDashboardPage() {
             setExpiryFilter(expiryFilter === 'expiring' ? 'all' : 'expiring');
             setPage(1);
           }}
-          className={`group flex flex-col justify-between rounded-2xl bg-white p-5 text-left border shadow-sm transition-all hover:shadow-md active:scale-[0.99] ${
+          className={`group flex flex-col justify-between rounded-2xl bg-white p-3.5 sm:p-5 text-left border shadow-sm transition-all hover:shadow-md active:scale-[0.99] ${
             expiryFilter === 'expiring'
               ? 'border-amber-500 ring-2 ring-amber-500/20'
               : 'border-zinc-200/80 hover:border-amber-200'
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-amber-600">
+            <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-amber-600">
               Expiring Soon
             </span>
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
+            <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
               <BellRing className="h-4 w-4" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline justify-between">
+          <div className="mt-2.5 sm:mt-3 flex items-baseline justify-between">
             <span
-              className={`text-3xl font-extrabold tracking-tight ${
+              className={`text-2xl sm:text-3xl font-extrabold tracking-tight ${
                 stats.expiringCount > 0 ? 'text-amber-600' : 'text-zinc-900'
               }`}
             >
               {stats.expiringCount.toLocaleString('en-IN')}
             </span>
-            <span className="text-xs font-medium text-zinc-400">Needs Usage</span>
+            <span className="text-[11px] sm:text-xs font-medium text-zinc-400">Needs Usage</span>
           </div>
         </button>
 
@@ -452,25 +452,25 @@ export default function InventoryDashboardPage() {
             setExpiryFilter(expiryFilter === 'non_perishable' ? 'all' : 'non_perishable');
             setPage(1);
           }}
-          className={`group flex flex-col justify-between rounded-2xl bg-white p-5 text-left border shadow-sm transition-all hover:shadow-md active:scale-[0.99] ${
+          className={`group flex flex-col justify-between rounded-2xl bg-white p-3.5 sm:p-5 text-left border shadow-sm transition-all hover:shadow-md active:scale-[0.99] ${
             expiryFilter === 'non_perishable'
               ? 'border-emerald-500 ring-2 ring-emerald-500/20'
               : 'border-zinc-200/80 hover:border-emerald-200'
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wider text-emerald-700">
+            <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-emerald-700">
               Non-Perishable
             </span>
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+            <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
               <CheckCircle2 className="h-4 w-4" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline justify-between">
-            <span className="text-3xl font-extrabold tracking-tight text-zinc-900">
+          <div className="mt-2.5 sm:mt-3 flex items-baseline justify-between">
+            <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900">
               {stats.nonPerishableCount.toLocaleString('en-IN')}
             </span>
-            <span className="text-xs font-medium text-zinc-400">Linen, Wires, Tools</span>
+            <span className="text-[11px] sm:text-xs font-medium text-zinc-400 truncate">No Expiry</span>
           </div>
         </button>
       </div>
@@ -797,119 +797,54 @@ export default function InventoryDashboardPage() {
           })}
         </div>
       ) : (
-        /* HIGH-DENSITY TABLE VIEW (Warehouse Mode) */
-        <div className="overflow-hidden rounded-2xl border border-zinc-200/80 bg-white shadow-sm">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-zinc-100 bg-zinc-50/75 text-[11px] font-bold uppercase tracking-wider text-zinc-500">
-                  <th className="py-3.5 pl-5 pr-3">Product</th>
-                  <th className="py-3.5 px-3">Category</th>
-                  <th className="py-3.5 px-3">Location</th>
-                  <th className="py-3.5 px-3">Stock Level</th>
-                  <th className="py-3.5 px-3">Unit Cost</th>
-                  <th className="py-3.5 px-3">Expiry / Status</th>
-                  <th className="py-3.5 pl-3 pr-5 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-zinc-100 text-sm">
-                {items.map((item) => {
-                  const exp = getExpiryDetails(item.expiry_date, item.expiry_alert_days);
-                  const isLowStock =
-                    item.min_alert_stock && item.min_alert_stock > 0
-                      ? item.current_stock <= item.min_alert_stock
-                      : false;
+        /* ROW / LIST VIEW: Adaptive Mobile-First Cards on Mobile, High-Density Table on Desktop */
+        <div>
+          {/* 1. TOUCH-FIRST MOBILE ROW CARDS (< md) */}
+          <div className="space-y-3 md:hidden">
+            {items.map((item) => {
+              const exp = getExpiryDetails(item.expiry_date, item.expiry_alert_days);
+              const isLowStock =
+                item.min_alert_stock && item.min_alert_stock > 0
+                  ? item.current_stock <= item.min_alert_stock
+                  : false;
 
-                  return (
-                    <tr
-                      key={item.id}
-                      className="group transition hover:bg-zinc-50/80"
-                    >
-                      {/* Product Name + Thumbnail */}
-                      <td className="py-3.5 pl-5 pr-3">
-                        <div className="flex items-center gap-3">
-                          <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-xl border border-zinc-100 bg-zinc-50">
-                            {item.image_url ? (
-                              <Image
-                                src={item.image_url}
-                                alt={item.name}
-                                fill
-                                className="object-cover"
-                                sizes="44px"
-                              />
-                            ) : (
-                              <div className="flex h-full w-full items-center justify-center text-zinc-300">
-                                <Package className="h-5 w-5" />
-                              </div>
-                            )}
-                          </div>
-                          <div className="min-w-0">
-                            <Link
-                              href={`/dashboard/inventory/${item.id}`}
-                              className="font-bold text-zinc-900 group-hover:text-primary transition-colors hover:underline block truncate max-w-[220px]"
-                              title={item.name}
-                            >
-                              {item.name}
-                            </Link>
-                            {item.batch_number && (
-                              <span className="text-[11px] font-mono text-zinc-400">
-                                Batch: {item.batch_number}
-                              </span>
-                            )}
-                          </div>
+              return (
+                <div
+                  key={item.id}
+                  className={`relative flex flex-col justify-between rounded-2xl border bg-white p-4 shadow-sm transition active:scale-[0.99] ${
+                    exp?.isExpired
+                      ? 'border-rose-300 ring-1 ring-rose-200'
+                      : exp?.isExpiringSoon
+                      ? 'border-amber-300 ring-1 ring-amber-200'
+                      : 'border-zinc-200/80'
+                  }`}
+                >
+                  {/* Top Row: Thumbnail + Info */}
+                  <div className="flex items-start gap-3">
+                    <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-zinc-100 bg-zinc-50">
+                      {item.image_url ? (
+                        <Image
+                          src={item.image_url}
+                          alt={item.name}
+                          fill
+                          className="object-cover"
+                          sizes="56px"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center text-zinc-300">
+                          <Package className="h-6 w-6" />
                         </div>
-                      </td>
+                      )}
+                    </div>
 
-                      {/* Category */}
-                      <td className="py-3.5 px-3">
-                        <span className="inline-flex rounded-md bg-zinc-100 px-2 py-0.5 text-xs font-semibold text-zinc-600">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-1">
+                        <span className="rounded-md bg-zinc-100 px-2 py-0.5 text-[10px] font-semibold text-zinc-600">
                           {item.category}
                         </span>
-                      </td>
-
-                      {/* Location */}
-                      <td className="py-3.5 px-3">
-                        {item.location ? (
-                          <div className="flex items-center gap-1 text-xs text-zinc-600">
-                            <MapPin className="h-3 w-3 text-zinc-400 shrink-0" />
-                            <span className="truncate max-w-[140px]">{item.location}</span>
-                          </div>
-                        ) : (
-                          <span className="text-xs text-zinc-400">—</span>
-                        )}
-                      </td>
-
-                      {/* Stock Level */}
-                      <td className="py-3.5 px-3">
-                        <div className="flex items-baseline gap-1.5">
-                          <span
-                            className={`text-base font-extrabold tracking-tight ${
-                              isLowStock ? 'text-amber-600' : 'text-zinc-900'
-                            }`}
-                          >
-                            {Number(item.current_stock).toLocaleString('en-IN')}
-                          </span>
-                          <span className="text-xs font-bold text-zinc-400 uppercase">
-                            {item.unit}
-                          </span>
-                        </div>
-                        {isLowStock && (
-                          <span className="text-[10px] font-semibold text-amber-600 block">
-                            Low Stock Alert
-                          </span>
-                        )}
-                      </td>
-
-                      {/* Unit Cost */}
-                      <td className="py-3.5 px-3 text-xs font-semibold text-zinc-700">
-                        {item.cost_per_unit > 0 ? `₹${item.cost_per_unit}` : '—'}
-                      </td>
-
-                      {/* Expiry Pill */}
-                      <td className="py-3.5 px-3">
                         {exp ? (
                           <span
-                            className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-bold ${
+                            className={`rounded-md px-1.5 py-0.5 text-[10px] font-bold ${
                               exp.isExpired
                                 ? 'bg-rose-100 text-rose-700'
                                 : exp.isExpiringSoon
@@ -917,69 +852,283 @@ export default function InventoryDashboardPage() {
                                 : 'bg-emerald-50 text-emerald-700'
                             }`}
                           >
-                            {exp.isExpired
-                              ? '⚠️ Expired'
-                              : exp.isExpiringSoon
-                              ? '⏳ ' + exp.label
-                              : exp.label}
+                            {exp.isExpired ? '⚠️ Expired' : exp.isExpiringSoon ? '⏳ ' + exp.label : exp.label}
                           </span>
-                        ) : (
-                          <span className="text-xs font-medium text-zinc-400">
-                            No Expiry
+                        ) : null}
+                      </div>
+
+                      <Link
+                        href={`/dashboard/inventory/${item.id}`}
+                        className="mt-1 block truncate text-base font-bold text-zinc-900 active:text-primary"
+                        title={item.name}
+                      >
+                        {item.name}
+                      </Link>
+
+                      <div className="mt-0.5 flex flex-wrap items-center gap-2 text-xs text-zinc-500">
+                        {item.location && (
+                          <span className="flex items-center gap-1">
+                            <MapPin className="h-3 w-3 text-zinc-400 shrink-0" />
+                            <span className="truncate max-w-[130px]">{item.location}</span>
                           </span>
                         )}
-                      </td>
+                        {item.cost_per_unit > 0 && <span>₹{item.cost_per_unit}</span>}
+                      </div>
+                    </div>
+                  </div>
 
-                      {/* Actions */}
-                      <td className="py-3.5 pl-3 pr-5 text-right">
-                        <div className="flex items-center justify-end gap-1.5">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setAdjustingItem(item);
-                              setAdjustType('stock_out');
-                              setAdjustQuantity('');
-                              setAdjustReason('Issued for maintenance / room');
-                            }}
-                            className="rounded-lg border border-zinc-200 bg-white px-2.5 py-1 text-xs font-semibold text-zinc-700 shadow-sm transition hover:bg-rose-50 hover:border-rose-200 hover:text-rose-700"
-                            title="Issue Stock"
-                          >
-                            - Issue
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setAdjustingItem(item);
-                              setAdjustType('stock_in');
-                              setAdjustQuantity('');
-                              setAdjustReason('Purchased / Received');
-                            }}
-                            className="rounded-lg bg-emerald-600 px-2.5 py-1 text-xs font-semibold text-white shadow-sm transition hover:bg-emerald-700"
-                            title="Add Stock"
-                          >
-                            + Add
-                          </button>
-                          <Link
-                            href={`/dashboard/inventory/${item.id}/edit`}
-                            className="rounded-lg p-1.5 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700"
-                            title="Edit"
-                          >
-                            <Edit2 className="h-3.5 w-3.5" />
-                          </Link>
-                          <button
-                            onClick={(e) => handleDeleteItem(item, e)}
-                            className="rounded-lg p-1.5 text-zinc-400 hover:bg-rose-50 hover:text-rose-600"
-                            title="Delete"
-                          >
-                            <Trash2 className="h-3.5 w-3.5" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                  {/* Bottom Stock + Quick Thumb Action Row */}
+                  <div className="mt-3 flex items-center justify-between gap-2 border-t border-zinc-100 pt-3">
+                    <div>
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400 block">
+                        Current Stock
+                      </span>
+                      <div className="flex items-baseline gap-1">
+                        <span
+                          className={`text-xl font-extrabold tracking-tight ${
+                            isLowStock ? 'text-amber-600' : 'text-zinc-900'
+                          }`}
+                        >
+                          {Number(item.current_stock).toLocaleString('en-IN')}
+                        </span>
+                        <span className="text-xs font-bold text-zinc-400 uppercase">
+                          {item.unit}
+                        </span>
+                      </div>
+                      {isLowStock && (
+                        <span className="text-[10px] font-semibold text-amber-600 block">
+                          Low Stock Alert
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setAdjustingItem(item);
+                          setAdjustType('stock_out');
+                          setAdjustQuantity('');
+                          setAdjustReason('Issued for maintenance / room');
+                        }}
+                        className="flex h-9 items-center justify-center gap-1 rounded-xl border border-zinc-200 bg-white px-3 text-xs font-semibold text-zinc-700 shadow-sm transition active:bg-rose-50 active:border-rose-200 active:text-rose-700"
+                      >
+                        <Minus className="h-3.5 w-3.5" />
+                        <span>Issue</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setAdjustingItem(item);
+                          setAdjustType('stock_in');
+                          setAdjustQuantity('');
+                          setAdjustReason('Purchased / Received');
+                        }}
+                        className="flex h-9 items-center justify-center gap-1 rounded-xl bg-emerald-600 px-3 text-xs font-semibold text-white shadow-sm transition active:bg-emerald-700"
+                      >
+                        <Plus className="h-3.5 w-3.5" />
+                        <span>Add</span>
+                      </button>
+
+                      <Link
+                        href={`/dashboard/inventory/${item.id}/edit`}
+                        className="flex h-9 w-9 items-center justify-center rounded-xl border border-zinc-200 bg-white text-zinc-500 shadow-sm active:bg-zinc-100"
+                        title="Edit Item"
+                      >
+                        <Edit2 className="h-3.5 w-3.5" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* 2. FULL DESKTOP TABLE (>= md) */}
+          <div className="hidden md:block overflow-hidden rounded-2xl border border-zinc-200/80 bg-white shadow-sm">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-zinc-100 bg-zinc-50/75 text-[11px] font-bold uppercase tracking-wider text-zinc-500">
+                    <th className="py-3.5 pl-5 pr-3">Product</th>
+                    <th className="py-3.5 px-3">Category</th>
+                    <th className="py-3.5 px-3">Location</th>
+                    <th className="py-3.5 px-3">Stock Level</th>
+                    <th className="py-3.5 px-3">Unit Cost</th>
+                    <th className="py-3.5 px-3">Expiry / Status</th>
+                    <th className="py-3.5 pl-3 pr-5 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-zinc-100 text-sm">
+                  {items.map((item) => {
+                    const exp = getExpiryDetails(item.expiry_date, item.expiry_alert_days);
+                    const isLowStock =
+                      item.min_alert_stock && item.min_alert_stock > 0
+                        ? item.current_stock <= item.min_alert_stock
+                        : false;
+
+                    return (
+                      <tr
+                        key={item.id}
+                        className="group transition hover:bg-zinc-50/80"
+                      >
+                        {/* Product Name + Thumbnail */}
+                        <td className="py-3.5 pl-5 pr-3">
+                          <div className="flex items-center gap-3">
+                            <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-xl border border-zinc-100 bg-zinc-50">
+                              {item.image_url ? (
+                                <Image
+                                  src={item.image_url}
+                                  alt={item.name}
+                                  fill
+                                  className="object-cover"
+                                  sizes="44px"
+                                />
+                              ) : (
+                                <div className="flex h-full w-full items-center justify-center text-zinc-300">
+                                  <Package className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
+                            <div className="min-w-0">
+                              <Link
+                                href={`/dashboard/inventory/${item.id}`}
+                                className="font-bold text-zinc-900 group-hover:text-primary transition-colors hover:underline block truncate max-w-[220px]"
+                                title={item.name}
+                              >
+                                {item.name}
+                              </Link>
+                              {item.batch_number && (
+                                <span className="text-[11px] font-mono text-zinc-400">
+                                  Batch: {item.batch_number}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </td>
+
+                        {/* Category */}
+                        <td className="py-3.5 px-3">
+                          <span className="inline-flex rounded-md bg-zinc-100 px-2 py-0.5 text-xs font-semibold text-zinc-600">
+                            {item.category}
+                          </span>
+                        </td>
+
+                        {/* Location */}
+                        <td className="py-3.5 px-3">
+                          {item.location ? (
+                            <div className="flex items-center gap-1 text-xs text-zinc-600">
+                              <MapPin className="h-3 w-3 text-zinc-400 shrink-0" />
+                              <span className="truncate max-w-[140px]">{item.location}</span>
+                            </div>
+                          ) : (
+                            <span className="text-xs text-zinc-400">—</span>
+                          )}
+                        </td>
+
+                        {/* Stock Level */}
+                        <td className="py-3.5 px-3">
+                          <div className="flex items-baseline gap-1.5">
+                            <span
+                              className={`text-base font-extrabold tracking-tight ${
+                                isLowStock ? 'text-amber-600' : 'text-zinc-900'
+                              }`}
+                            >
+                              {Number(item.current_stock).toLocaleString('en-IN')}
+                            </span>
+                            <span className="text-xs font-bold text-zinc-400 uppercase">
+                              {item.unit}
+                            </span>
+                          </div>
+                          {isLowStock && (
+                            <span className="text-[10px] font-semibold text-amber-600 block">
+                              Low Stock Alert
+                            </span>
+                          )}
+                        </td>
+
+                        {/* Unit Cost */}
+                        <td className="py-3.5 px-3 text-xs font-semibold text-zinc-700">
+                          {item.cost_per_unit > 0 ? `₹${item.cost_per_unit}` : '—'}
+                        </td>
+
+                        {/* Expiry Pill */}
+                        <td className="py-3.5 px-3">
+                          {exp ? (
+                            <span
+                              className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-bold ${
+                                exp.isExpired
+                                  ? 'bg-rose-100 text-rose-700'
+                                  : exp.isExpiringSoon
+                                  ? 'bg-amber-100 text-amber-800'
+                                  : 'bg-emerald-50 text-emerald-700'
+                              }`}
+                            >
+                              {exp.isExpired
+                                ? '⚠️ Expired'
+                                : exp.isExpiringSoon
+                                ? '⏳ ' + exp.label
+                                : exp.label}
+                            </span>
+                          ) : (
+                            <span className="text-xs font-medium text-zinc-400">
+                              No Expiry
+                            </span>
+                          )}
+                        </td>
+
+                        {/* Actions */}
+                        <td className="py-3.5 pl-3 pr-5 text-right">
+                          <div className="flex items-center justify-end gap-1.5">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setAdjustingItem(item);
+                                setAdjustType('stock_out');
+                                setAdjustQuantity('');
+                                setAdjustReason('Issued for maintenance / room');
+                              }}
+                              className="rounded-lg border border-zinc-200 bg-white px-2.5 py-1 text-xs font-semibold text-zinc-700 shadow-sm transition hover:bg-rose-50 hover:border-rose-200 hover:text-rose-700"
+                              title="Issue Stock"
+                            >
+                              - Issue
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setAdjustingItem(item);
+                                setAdjustType('stock_in');
+                                setAdjustQuantity('');
+                                setAdjustReason('Purchased / Received');
+                              }}
+                              className="rounded-lg bg-emerald-600 px-2.5 py-1 text-xs font-semibold text-white shadow-sm transition hover:bg-emerald-700"
+                              title="Add Stock"
+                            >
+                              + Add
+                            </button>
+                            <Link
+                              href={`/dashboard/inventory/${item.id}/edit`}
+                              className="rounded-lg p-1.5 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700"
+                              title="Edit"
+                            >
+                              <Edit2 className="h-3.5 w-3.5" />
+                            </Link>
+                            <button
+                              onClick={(e) => handleDeleteItem(item, e)}
+                              className="rounded-lg p-1.5 text-zinc-400 hover:bg-rose-50 hover:text-rose-600"
+                              title="Delete"
+                            >
+                              <Trash2 className="h-3.5 w-3.5" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}
@@ -1162,6 +1311,7 @@ export default function InventoryDashboardPage() {
                     type="number"
                     step="any"
                     min="0.1"
+                    inputMode="decimal"
                     autoFocus
                     required
                     placeholder="Enter quantity..."
@@ -1233,6 +1383,14 @@ export default function InventoryDashboardPage() {
           </div>
         </div>
       )}
+      {/* Mobile Floating Action Button (FAB) for fast 1-tap product addition */}
+      <Link
+        href="/dashboard/inventory/new"
+        className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-[0_10px_25px_rgba(158,45,45,0.4)] transition hover:bg-primary-hover active:scale-95 sm:hidden"
+        title="Add New Product"
+      >
+        <Plus className="h-6 w-6 stroke-[2.5]" />
+      </Link>
     </div>
   );
 }
